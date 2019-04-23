@@ -10,7 +10,13 @@ namespace _18GhostsGame
 
             board.Draw();
             Console.WriteLine("Hello World!");
-            
+
+            /* TO READ ACTIONS WITHOUT PRESSING ENTER
+            switch (Console.ReadKey())
+            {
+
+            }
+            */
 
             // PLACE GHOSTS LOOP
 
@@ -32,6 +38,7 @@ namespace _18GhostsGame
             // Choose what color of ghost to move
             // Choose wich ghost of that color to move
             // Move
+            // up down left or right (u,d,l,r / w,a,s,d)
             // Check who wins or nothing
 
             // Rotate portals

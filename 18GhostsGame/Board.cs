@@ -8,51 +8,64 @@ namespace _18GhostsGame
     {
         public void Draw()
         {
+            // Variables
+            int line = 0;
+            Symbols symbol = Symbols.blank;
+            // Readying the console text for unicode
             Console.OutputEncoding = Encoding.UTF8;
+
+            // Change text color
             Console.ForegroundColor = ConsoleColor.Blue;
 
+            // Print the first horizontal lines
             Console.Write(" _____ _____ _____ _____ _____ _____ \n");
+
+            // Print all the upcoming lines to make a 5x5 board
             for (int i = 0; i < 5; i++)
             {
+                // Increment current line
+                line++;
+
+                // Print vertical lines
                 Console.Write(
                        "|     |     |     |     |     |     |\n");
 
+                // Printing middle lines
                 for (int j = 0; j < 38; j++)
                 {
+                    // Not vertical line space
                     if (j % 6 != 0)
-                        Console.Write(" ");
+
+                        // Not middle space
+                        if (j % 3 != 0)
+                            symbol = Symbols.blank;
+
+                        // Middle Spaces
+                        // Mirror Space
+                        else if ((j == 9 && line % 2 == 0) ||
+                            (j == 21 && line % 2 == 0))
+                            symbol = Symbols.mirrors;
+                        // ?? Space
+                        else
+                            symbol = Symbols.blank;
+
+                    // Vertical line space
                     else
-                        Console.Write("|");
+                        symbol = Symbols.column;
+
+                    Console.Write(Enum.GetValues(symbol);
                 }
 
+                // Print cell bottom lines
                 Console.Write("\n|_____|_____|_____|_____|_____|     |\n");
             }
 
-            Console.Write("                               ‾‾‾‾‾ \n");
+            // Print the dungeon bottom horizontal line
+            Console.Write("                               ‾‾‾‾‾ \n\n\n");
 
-            Console.Write("\n\n");
+            Console.WriteLine("Ghost1:Σ\nGhost2:Φ\nGhost3:Ψ\nMirror:¤");
 
-            // 38 chars horizontally
-            /* Console.WriteLine(
-                " _____ _____ _____ _____ _____ _____ \n" +
-                "|1    |2    |3    |4    |5    |     |\n" +
-                "|     |     |     |     |     |  D  |\n" +
-                "|_____|_____|_____|_____|_____|     |\n" +
-                "|6    |7    |8    |9    |10   |  U  |\n" +
-                "|     |     |     |     |     |     |\n" +
-                "|_____|_____|_____|_____|_____|  N  |\n" +
-                "|11   |12   |13   |14   |15   |     |\n" +
-                "|     |     |     |     |     |  G  |\n" +
-                "|_____|_____|_____|_____|_____|     |\n" +
-                "|16   |17   |18   |19   |20   |  E  |\n" +
-                "|     |     |     |     |     |     |\n" +
-                "|_____|_____|_____|_____|_____|  O  |\n" +
-                "|21   |22   |23   |24   |25   |     |\n" +
-                "|     |     |     |     |     |  N  |\n" +
-                "|_____|_____|_____|_____|_____|_____|");
-
-            */
-
+            // Reset text color back to white
             Console.ResetColor();
         }
 
