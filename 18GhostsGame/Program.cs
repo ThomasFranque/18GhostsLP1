@@ -9,7 +9,15 @@ namespace _18GhostsGame
             Board board = new Board();
 
             board.Draw();
-            Console.WriteLine("Hello World!");
+            board.GhostDead("red");
+
+            board.Draw();
+            board.GhostDead("blue");
+
+            board.Draw();
+            board.GhostDead("yellow");
+
+            board.Draw();
 
             /* TO READ ACTIONS WITHOUT PRESSING ENTER
             switch (Console.ReadKey())

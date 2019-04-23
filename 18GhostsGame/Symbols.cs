@@ -7,6 +7,7 @@ namespace _18GhostsGame
     enum Symbols
     {
         blank = ' ',
+        carpet = '·',
         column = '|',
         ghosts1 = 'Φ',
         ghosts2 = 'Ψ',
