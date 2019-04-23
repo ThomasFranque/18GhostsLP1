@@ -9,14 +9,19 @@ namespace _18GhostsGame
         blank = ' ',
         carpet = '·',
         column = '|',
-        ghosts1 = 'Φ',
-        ghosts2 = 'Ψ',
-        ghosts3 = 'Σ',
         mirrors = '¤',
         portalUp = '↑',
         portalDown = '↓',
         portalLeft = '←',
-        portalRight = '→'
+        portalRight = '→',
+
+        ghosts1P1 = 'a',
+        ghosts2P1 = 'b',
+        ghosts3P1 = 'c',
+
+        ghosts1P2 = 'ɐ',  
+        ghosts2P2 = 'q',
+        ghosts3P2 = 'ɔ'
     }
 }
 

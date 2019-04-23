@@ -43,8 +43,9 @@ namespace _18GhostsGame
                 // Printing middle lines
                 for (int j = 0; j < 38; j++)
                 {
+
                     // Not a column space (Middle Spaces)
-                    if (j % 6 != 0)
+                    if (j % 6 != 0 && j != 33)
 
                         // Mirrors place
                         if ((j == 9 && line % 2 == 0) ||
@@ -74,7 +75,10 @@ namespace _18GhostsGame
                         {
                             symbol = Symbols.carpet;
                             // Red carpets
-                            if (line == 1 && (j == 9 || j == 27))
+                            if (line == 1 && (j == 9 || j == 27) || 
+                                line == 3 && (j == 3 || j == 15) || 
+                                line == 4 && j == 27 ||
+                                line == 5 && j == 9)
                                 Console.ForegroundColor = ConsoleColor.DarkRed;
                             // Blue carpets
                             else if (line == 1 && (j == 3 || j == 21) ||
@@ -83,8 +87,12 @@ namespace _18GhostsGame
                                 line == 5 && j == 21)
                                 Console.ForegroundColor = ConsoleColor.Cyan;
                             // Yellow carpets
-                            // tbd
-
+                            else if (line == 2 && (j == 3 || j == 15 || 
+                                j == 27) || 
+                                line == 4 && j == 15 || 
+                                line == 5 && (j == 3 || j == 27))
+                                Console.ForegroundColor = 
+                                    ConsoleColor.DarkYellow;
                         }
 
                         // Fill blank Spaces in line (to be changed)
@@ -92,8 +100,12 @@ namespace _18GhostsGame
                             symbol = Symbols.blank;
 
                     // Vertical line space
-                    else
+                    else if (j != 33)
                         symbol = Symbols.column;
+
+                    // Dungeon spots
+                    else
+                        symbol = Symbols.blank;
 
                     Console.Write(((char)symbol).ToString());
                     Console.ResetColor();
@@ -107,7 +119,8 @@ namespace _18GhostsGame
             // Print the dungeon bottom horizontal line
             Console.Write("                               ‾‾‾‾‾ \n\n\n");
 
-            Console.WriteLine("Ghost1:Σ\nGhost2:Φ\nGhost3:Ψ\nMirror:¤");
+            // Debugging
+            Console.WriteLine("Ghost1:Σ\nGhost2:Φ\nGhost3:Ψ\nMirror:¤ \nɔ q ɐ");
         }
 
         /// <summary>
