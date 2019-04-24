@@ -24,6 +24,8 @@ namespace _18GhostsGame
             // Method variables
             byte line = 0;
             int[] ghostPos;
+            // used to not print carpets when a ghost is there
+            bool ghostSpot = false;
             Symbols symbol = Symbols.blank;
 
             // Readying the console text for unicode
@@ -45,7 +47,7 @@ namespace _18GhostsGame
                 // Printing middle lines
                 for (byte j = 0; j < 31; j++)
                 {
-
+                    ghostSpot = false;
                     // Not a column space (Middle Spaces)
                     if (j % 6 != 0)
 
@@ -78,35 +80,35 @@ namespace _18GhostsGame
                         {
                             foreach (int ghost in p1Ghosts)
                             {
-                                symbol = Symbols.carpet;
-
                                 ghostPos = NormalizePositions(ghost);
                                 if (ghostPos[0] == line && ghostPos[1] == j)
                                 {
                                     PrintGhostSymbolP1(ghost, p1Ghosts);
+                                    ghostSpot = true;
                                     j++;
                                 }
-                                // Carpets
-                                else
-                                    PrintCarpetColor(line, j);
                             }
                             foreach (int ghost in p2Ghosts)
                             {
-                                symbol = Symbols.carpet;
+                                symbol = Symbols.blank;
 
                                 ghostPos = NormalizePositions(ghost);
                                 if (ghostPos[0] == line && ghostPos[1] == j)
                                 {
                                     PrintGhostSymbolP2(ghost, p2Ghosts);
+                                    ghostSpot = true;
                                     j++;
                                 }
-                                // Carpets
-                                else
-                                    PrintCarpetColor(line, j);
+                            }
+                            // Print carpet if there is no ghost there
+                            if (ghostSpot == false)
+                            {
+                                symbol = Symbols.carpet;
+                                PrintCarpetColor(line, j);
                             }
                         }
 
-                        // Fill blank Spaces in line (to be changed)
+                        // Fill blank Spaces in line
                         else
                             symbol = Symbols.blank;
 

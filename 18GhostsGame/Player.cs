@@ -16,7 +16,7 @@ namespace _18GhostsGame
 
         public Player(byte playerNum)
         {
-            ghosts = new int[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+            ghosts = new int[3, 3] { { 2, 0, 0 }, { 0, 6, 0 }, { 0, 0, 0 } };
             this.playerNum = playerNum == 1 ? "Player 1" : "Player 2";
         }
 
@@ -32,7 +32,7 @@ namespace _18GhostsGame
 
         public void SetGhostsToZero()
         {
-            ghosts = new int[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+            ghosts = new int[3, 3] { { 0, 21, 0 }, { 0, 0, 8 }, { 0, 0, 0 } };
         }
 
         public string GetPlayerNum() => playerNum;
