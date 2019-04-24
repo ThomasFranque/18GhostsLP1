@@ -7,12 +7,14 @@ namespace _18GhostsGame
         static void Main(string[] args)
         {
             Board board = new Board();
+            Player player1 = new Player(1);
+            Player player2 = new Player(2);
 
-            board.Draw();
+            board.Draw(player1.GetGhosts(), player2.GetGhosts());
 
+            player1.SetGhostsToZero();
             board.GhostDead("yellow");
-            board.Draw();
-
+            board.Draw(player1.GetGhosts(), player2.GetGhosts());
 
             /* TO READ ACTIONS WITHOUT PRESSING ENTER
             switch (Console.ReadKey())
