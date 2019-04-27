@@ -16,7 +16,7 @@ namespace _18GhostsGame
 
         public Player(byte playerNum)
         {
-            ghosts = new int[3, 3] { { 2, 0, 0 }, { 0, 6, 0 }, { 0, 0, 0 } };
+            ghosts = new int[3, 3] { { 2, 0, 0 }, { 0, 6, 0 }, { 0, 12, 0 } };
             this.playerNum = playerNum == 1 ? "Player 1" : "Player 2";
         }
 
