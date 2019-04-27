@@ -24,11 +24,11 @@ namespace _18GhostsGame
         }
 
         // DONT FORGET XML DOCUMENTATION!!!!!!!
-        public void Draw(int[,] p1Ghosts, int[,] p2Ghosts)
+        public void Draw(byte[,] p1Ghosts, byte[,] p2Ghosts)
         {
             // Method variables
             byte line = 0;
-            int[] ghostPos;
+            byte[] ghostPos;
             // used to not print carpets when a ghost is there
             bool ghostSpot = false;
             Symbols symbol = Symbols.blank;
@@ -84,7 +84,7 @@ namespace _18GhostsGame
                         // Keep in mind: Player 1 ghosts will allways be on top
                         else if (j % 3 == 0)
                         {
-                            foreach (int ghost in p1Ghosts)
+                            foreach (byte ghost in p1Ghosts)
                             {
                                 ghostPos = NormalizePositions(ghost);
                                 if (ghostPos[0] == line && ghostPos[1] == j)
@@ -94,7 +94,7 @@ namespace _18GhostsGame
                                     j++;
                                 }
                             }
-                            foreach (int ghost in p2Ghosts)
+                            foreach (byte ghost in p2Ghosts)
                             {
                                 symbol = Symbols.blank;
 
@@ -149,7 +149,7 @@ namespace _18GhostsGame
             Console.WriteLine("\nGhost1:a\nGhost2:b\nGhost3:c\nMirror:¤ \nɔ q ɐ");
         }
 
-        private void PrintGhostSymbolP1(int targetGhost, int[,] allGhosts)
+        private void PrintGhostSymbolP1(byte targetGhost, byte[,] allGhosts)
         {
             Symbols ghostSymbol = Symbols.blank;
             byte counter = 0;
@@ -208,7 +208,7 @@ namespace _18GhostsGame
             Console.Write(((char)ghostSymbol).ToString());
             Console.ResetColor();
         }
-        private void PrintGhostSymbolP2(int targetGhost, int[,] allGhosts)
+        private void PrintGhostSymbolP2(byte targetGhost, byte[,] allGhosts)
         {
             Symbols ghostSymbol = Symbols.blank;
             byte counter = 0;
@@ -267,12 +267,12 @@ namespace _18GhostsGame
             Console.Write(((char)ghostSymbol).ToString());
             Console.ResetColor();
         }
-        private void PrintDungeonGhostSymbol(byte playerNum, int[,] allGhosts)
+        private void PrintDungeonGhostSymbol(byte playerNum, byte[,] allGhosts)
         {
             byte counter = 0;
             Symbols[] ghostsToPrint = new Symbols[9];
 
-            foreach (int ghost in allGhosts)
+            foreach (byte ghost in allGhosts)
             {
                 counter++;
                 // Player 1 symbols
@@ -367,10 +367,10 @@ namespace _18GhostsGame
                     ConsoleColor.DarkYellow;
         }
 
-        private int[] NormalizePositions(int ghost)
+        private byte[] NormalizePositions(byte ghost)
         {
             //  normalizedPos = { line, character };
-            int[] normalizedPos = new int[] { 0, 0 };
+            byte[] normalizedPos = new byte[] { 0, 0 };
 
             // Is in the dungeon
             if (ghost <= 0)
@@ -418,13 +418,13 @@ namespace _18GhostsGame
             return normalizedPos;
         }
 
-        private int FindCharacterInLine(int ghost)
+        private byte FindCharacterInLine(byte ghost)
         {
-            int finalCharacter = 0;
+            byte finalCharacter = 0;
             bool keepRunning = true;
 
             if (keepRunning)
-                for (int k = 1; k <= 21; k += 5)
+                for (byte k = 1; k <= 21; k += 5)
                     if (ghost == k)
                     {
                         finalCharacter = 3;
@@ -433,7 +433,7 @@ namespace _18GhostsGame
                     }
 
             if (keepRunning)
-                for (int k = 2; k <= 22; k += 5)
+                for (byte k = 2; k <= 22; k += 5)
                     if (ghost == k)
                     {
                         finalCharacter = 9;
@@ -442,7 +442,7 @@ namespace _18GhostsGame
                     }
 
             if (keepRunning)
-                for (int k = 3; k <= 23; k += 5)
+                for (byte k = 3; k <= 23; k += 5)
                     if (ghost == k)
                     {
                         finalCharacter = 15;
@@ -451,7 +451,7 @@ namespace _18GhostsGame
                     }
 
             if (keepRunning)
-                for (int k = 4; k <= 24; k += 5)
+                for (byte k = 4; k <= 24; k += 5)
                     if (ghost == k)
                     {
                         finalCharacter = 21;
@@ -460,7 +460,7 @@ namespace _18GhostsGame
                     }
 
             if (keepRunning)
-                for (int k = 5; k <= 25; k += 5)
+                for (byte k = 5; k <= 25; k += 5)
                     if (ghost == k)
                     {
                         finalCharacter = 27;
