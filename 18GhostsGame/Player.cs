@@ -11,12 +11,17 @@ namespace _18GhostsGame
          Blue Ghosts = ghosts[2,~];
          Yellow Ghosts = ghosts[1,~];
         */
+
+        // ####### HEY THIS IS YOUR CAPTAIN SPEAKING #######
+        // Tenta tornar a variavel ghosts numa propriedade antes de começares
+
         private byte[,] ghosts;
         private string playerNum;
 
+        // Constructor
         public Player(byte playerNum)
         {
-            ghosts = new byte[3, 3] { { 2, 0, 0 }, { 0, 6, 0 }, { 0, 12, 0 } };
+            ghosts = new byte[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
             this.playerNum = playerNum == 1 ? "Player 1" : "Player 2";
         }
 
@@ -30,9 +35,10 @@ namespace _18GhostsGame
 
         }
 
-        public void SetGhostsToZero()
+        // Does what it says
+        public void SetGhostPosToZero()
         {
-            ghosts = new byte[3, 3] { { 0, 21, 0 }, { 0, 0, 8 }, { 0, 0, 0 } };
+            ghosts = new byte[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
         }
 
         public string GetPlayerNum() => playerNum;

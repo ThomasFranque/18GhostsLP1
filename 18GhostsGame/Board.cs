@@ -10,6 +10,7 @@ using System.Text;
  * 3.XML documentation
  */
 
+// DONT FORGET XML DOCUMENTATION!!!!!!!
 
 namespace _18GhostsGame
 {
@@ -56,7 +57,6 @@ namespace _18GhostsGame
                 {Symbols.ghosts1P2, Symbols.ghosts2P2, Symbols.ghosts3P2};
         }
 
-        // DONT FORGET XML DOCUMENTATION!!!!!!!
         public void Draw(byte[,] p1Ghosts, byte[,] p2Ghosts)
         {
             // Temporary method variables

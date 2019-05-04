@@ -12,7 +12,7 @@ namespace _18GhostsGame
 
             board.Draw(player1.GetGhosts(), player2.GetGhosts());
 
-            player1.SetGhostsToZero();
+            player1.SetGhostPosToZero();
             board.GhostDead("yellow");
             board.Draw(player1.GetGhosts(), player2.GetGhosts());
 
