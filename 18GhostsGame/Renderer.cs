@@ -54,7 +54,7 @@ namespace _18GhostsGame
             ResetConsoleColor();
         }
 
-        // Know wich symbol represents up down left and right
+        // Know which symbol represents up down left and right
         public static void PrintPortalSymbol(string portal)
         {
             Symbols symbolToPrint;

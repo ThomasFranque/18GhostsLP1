@@ -134,14 +134,20 @@ namespace _18GhostsGame
             return targetPos;
         }
 
+        // This method is for returning the given ghost 
+        // (target is for the single ghost and allGhosts is for 
+        // where it is contained)
+        // finalGhost[0] = Wihch ghost: first, second or third
+        // finalGhost[1] = Color of the ghost: red, blue, yellow
         public static byte[] FindGhost(byte targetGhost, byte[,] allGhosts)
         {
-            byte[] enemyGhost = new byte[2] { 0, 0 };
+            // enemyGhost
+            byte[] finalGhost = new byte[2] { 0, 0 };
             byte counter = 0;
 
             foreach (byte ghost in allGhosts)
             {
-                if (enemyGhost[0] == 0)
+                if (finalGhost[0] == 0)
                     counter++;
                 else
                     break;
@@ -154,35 +160,34 @@ namespace _18GhostsGame
                         case 1:
                         case 4:
                         case 7:
-                            enemyGhost[0] = 1;
+                            finalGhost[0] = 1;
                             break;
                         // Ghost 2
                         case 2:
                         case 5:
                         case 8:
-                            enemyGhost[0] = 2;
+                            finalGhost[0] = 2;
                             break;
                         // Ghost 3
                         case 3:
                         case 6:
                         case 9:
-                            enemyGhost[0] = 3;
+                            finalGhost[0] = 3;
                             break;
                     }
             }
             // Check corresponding ghost color
             // Red ghosts
             if (counter <= 3)
-                enemyGhost[1] = 1;
+                finalGhost[1] = 1;
             // Blue ghosts
             else if (counter <= 6)
-                enemyGhost[1] = 2;
+                finalGhost[1] = 2;
             // Yellow ghosts
             else
-                enemyGhost[1] = 3;
-
-            // Print
-            return enemyGhost;
+                finalGhost[1] = 3;
+            
+            return finalGhost;
         }
     }
 }
