@@ -60,18 +60,129 @@ namespace _18GhostsGame
             return isHere;
         }
 
-        // Check if given direction has a ghost there
-        public static bool[] CheckAdjacentPos
-            (string direction, byte target, 
-            byte[,] playerGhosts, byte[,] enemyGhosts)
+
+        // Check if given direction has a ally ghost there
+        public static bool CheckAdjacentPos
+            (char direction, byte targetGhost, byte[,] playerGhosts)
         {
-            // occupied[0] = Ghost There
-            // occupied[1] = Enemy Ghost There
-            bool[] occupied = new bool[] { false, false };
+            // occupied = Ghost There
+            bool occupied = false;
+            byte targetPos;
+            targetPos = DesiredPosition(direction, targetGhost);
 
-
+            if (CheckAllForEqual(targetPos, playerGhosts))
+                occupied = true;
 
             return occupied;
+        }
+
+        // Check if given direction has a ally ghost there
+        public static byte[] CheckAdjacentPosEnemy
+            (char direction, byte targetGhost, byte[,] enemyGhosts)
+        {
+            // occupied = Ghost There
+            byte[] enemyGhost = new byte[2] { 0, 0 };
+            byte targetPos;
+            targetPos = DesiredPosition(direction, targetGhost);
+
+            if (CheckAllForEqual(targetPos, enemyGhosts))
+                enemyGhost = FindGhost(targetPos, enemyGhosts);
+
+            return enemyGhost;
+        }
+
+        private static bool CheckAllForEqual(byte targetPos, byte[,] allGhosts)
+        {
+            bool isEqual = false;
+
+            foreach (byte ghost in allGhosts)
+            {
+                if (targetPos == ghost)
+                {
+                    isEqual = true;
+                    break;
+                }
+            }
+
+            return isEqual;
+        }
+
+        private static byte DesiredPosition(char direction, byte targetGhost)
+        {
+            byte targetPos = 0;
+
+            switch (direction)
+            {
+                // Up
+                case 'u':
+                    targetPos = (byte)(targetGhost - 5);
+                    break;
+                // Down
+                case 'd':
+                    targetPos = (byte)(targetGhost + 5);
+                    break;
+                // Left
+                case 'l':
+                    targetPos = (byte)(targetGhost - 1);
+                    break;
+                // Right
+                case 'r':
+                    targetPos = (byte)(targetGhost + 1);
+                    break;
+            }
+
+            return targetPos;
+        }
+
+        public static byte[] FindGhost(byte targetGhost, byte[,] allGhosts)
+        {
+            byte[] enemyGhost = new byte[2] { 0, 0 };
+            byte counter = 0;
+
+            foreach (byte ghost in allGhosts)
+            {
+                if (enemyGhost[0] == 0)
+                    counter++;
+                else
+                    break;
+
+                // Check for the same target ghost number on player ghosts
+                if (ghost == targetGhost)
+                    switch (counter)
+                    {
+                        // Ghost 1
+                        case 1:
+                        case 4:
+                        case 7:
+                            enemyGhost[0] = 1;
+                            break;
+                        // Ghost 2
+                        case 2:
+                        case 5:
+                        case 8:
+                            enemyGhost[0] = 2;
+                            break;
+                        // Ghost 3
+                        case 3:
+                        case 6:
+                        case 9:
+                            enemyGhost[0] = 3;
+                            break;
+                    }
+            }
+            // Check corresponding ghost color
+            // Red ghosts
+            if (counter <= 3)
+                enemyGhost[1] = 1;
+            // Blue ghosts
+            else if (counter <= 6)
+                enemyGhost[1] = 2;
+            // Yellow ghosts
+            else
+                enemyGhost[1] = 3;
+
+            // Print
+            return enemyGhost;
         }
     }
 }

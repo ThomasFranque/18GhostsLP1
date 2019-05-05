@@ -18,47 +18,36 @@ namespace _18GhostsGame
         public static void PrintSymbol
             (Symbols[] ghostSymbols, byte targetGhost, byte[,] allGhosts)
         {
+            byte[] foundGhost = new byte[2] { 0, 0 };
             Symbols ghostSymbol = Symbols.blank;
-            byte counter = 0;
 
-            foreach (int ghost in allGhosts)
+            foundGhost = Checker.FindGhost(targetGhost, allGhosts);
+
+            // Check for the same target ghost number on player ghosts
+            switch (foundGhost[0])
             {
-                if (ghostSymbol == Symbols.blank)
-                    counter++;
-                else
+                case 1:
+                    ghostSymbol = ghostSymbols[0];
                     break;
-
-                // Check for the same target ghost number on player ghosts
-                if (ghost == targetGhost)
-                    switch (counter)
-                    {
-                        case 1:
-                        case 4:
-                        case 7:
-                            ghostSymbol = ghostSymbols[0];
-                            break;
-                        case 2:
-                        case 5:
-                        case 8:
-                            ghostSymbol = ghostSymbols[1];
-                            break;
-                        case 3:
-                        case 6:
-                        case 9:
-                            ghostSymbol = ghostSymbols[2];
-                            break;
-                    }
+                case 2:
+                    ghostSymbol = ghostSymbols[1];
+                    break;
+                case 3:
+                    ghostSymbol = ghostSymbols[2];
+                    break;
             }
-            // Check corresponding ghost color
-            // Red ghosts
-            if (counter <= 3)
-                SetConsoleColor('r');
-            // Blue ghosts
-            else if (counter <= 6)
-                SetConsoleColor('b');
-            // Yellow ghosts
-            else
-                SetConsoleColor('y');
+            switch (foundGhost[1])
+            {
+                case 1:
+                    SetConsoleColor('r'); ;
+                    break;
+                case 2:
+                    SetConsoleColor('b');
+                    break;
+                case 3:
+                    SetConsoleColor('y');
+                    break;
+            }
 
             // Print
             PrintSymbol(ghostSymbol);
@@ -109,7 +98,7 @@ namespace _18GhostsGame
 
         // Drawing the dungeon
         public static void DrawDungeon
-            (byte[,] p1Ghosts, Symbols[] ghostSymsP1, 
+            (byte[,] p1Ghosts, Symbols[] ghostSymsP1,
             byte[,] p2Ghosts, Symbols[] ghostSymsP2)
         {
             Console.Write("|        D U N G E O N        |\n" +
@@ -175,13 +164,13 @@ namespace _18GhostsGame
                     SetConsoleColor('b');
 
                 // Yellow Ghosts
-                else if (counter == 6)
+                else if (counter == 7)
                     SetConsoleColor('y');
 
                 Console.Write(((char)ghost).ToString());
             }
             Console.ResetColor();
-        }        
+        }
 
         //
         public static void SetConsoleColor(char color)
@@ -233,7 +222,7 @@ namespace _18GhostsGame
             // Reset text color back to white
             Console.ResetColor();
         }
-        
+
         //
         public static void SetConsoleEncoding()
         {
