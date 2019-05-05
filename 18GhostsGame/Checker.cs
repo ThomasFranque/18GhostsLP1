@@ -76,7 +76,12 @@ namespace _18GhostsGame
             return occupied;
         }
 
-        // Check if given direction has a ally ghost there
+
+        // This method is for returning the given ghost 
+        // (target is for the single ghost and allGhosts is for 
+        // where it is contained)
+        // finalGhost[0] = Wihch ghost: first, second or third
+        // finalGhost[1] = Color of the ghost: red, blue, yellow
         public static byte[] CheckAdjacentPosEnemy
             (char direction, byte targetGhost, byte[,] enemyGhosts)
         {
@@ -91,54 +96,6 @@ namespace _18GhostsGame
             return enemyGhost;
         }
 
-        private static bool CheckAllForEqual(byte targetPos, byte[,] allGhosts)
-        {
-            bool isEqual = false;
-
-            foreach (byte ghost in allGhosts)
-            {
-                if (targetPos == ghost)
-                {
-                    isEqual = true;
-                    break;
-                }
-            }
-
-            return isEqual;
-        }
-
-        private static byte DesiredPosition(char direction, byte targetGhost)
-        {
-            byte targetPos = 0;
-
-            switch (direction)
-            {
-                // Up
-                case 'u':
-                    targetPos = (byte)(targetGhost - 5);
-                    break;
-                // Down
-                case 'd':
-                    targetPos = (byte)(targetGhost + 5);
-                    break;
-                // Left
-                case 'l':
-                    targetPos = (byte)(targetGhost - 1);
-                    break;
-                // Right
-                case 'r':
-                    targetPos = (byte)(targetGhost + 1);
-                    break;
-            }
-
-            return targetPos;
-        }
-
-        // This method is for returning the given ghost 
-        // (target is for the single ghost and allGhosts is for 
-        // where it is contained)
-        // finalGhost[0] = Wihch ghost: first, second or third
-        // finalGhost[1] = Color of the ghost: red, blue, yellow
         public static byte[] FindGhost(byte targetGhost, byte[,] allGhosts)
         {
             // enemyGhost
@@ -186,8 +143,51 @@ namespace _18GhostsGame
             // Yellow ghosts
             else
                 finalGhost[1] = 3;
-            
+
             return finalGhost;
+        }
+
+        private static bool CheckAllForEqual(byte targetPos, byte[,] allGhosts)
+        {
+            bool isEqual = false;
+
+            foreach (byte ghost in allGhosts)
+            {
+                if (targetPos == ghost)
+                {
+                    isEqual = true;
+                    break;
+                }
+            }
+
+            return isEqual;
+        }
+
+        private static byte DesiredPosition(char direction, byte targetGhost)
+        {
+            byte targetPos = 0;
+
+            switch (direction)
+            {
+                // Up
+                case 'u':
+                    targetPos = (byte)(targetGhost - 5);
+                    break;
+                // Down
+                case 'd':
+                    targetPos = (byte)(targetGhost + 5);
+                    break;
+                // Left
+                case 'l':
+                    targetPos = (byte)(targetGhost - 1);
+                    break;
+                // Right
+                case 'r':
+                    targetPos = (byte)(targetGhost + 1);
+                    break;
+            }
+
+            return targetPos;
         }
     }
 }
