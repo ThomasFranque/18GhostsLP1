@@ -134,7 +134,7 @@ namespace _18GhostsGame
                             symbol = Symbols.blank;
 
                     // Vertical line space
-                    else if (!Checker.CheckInBoard("column", line, j))
+                    else if (Checker.CheckInBoard("column", line, j))
                         symbol = Symbols.column;
 
                     // Empty spot
