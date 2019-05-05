@@ -47,13 +47,15 @@ namespace _18GhostsGame
                 case "Personalized":
                 case "p":
                 case "P":
-                    SetRounds();
+                    SetCustomSettings();
                     break;
             }
         }
         // Personalized
-        private void SetRounds()
+        private void SetCustomSettings()
         {
+            // ###### Change when class input exists ######
+
             // Ask how many rounds
             Rounds = 2;
             // Ask how many ghosts of the same color need to leave to win
