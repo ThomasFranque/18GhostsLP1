@@ -8,6 +8,7 @@ using System.Text;
  * 2.Improve the overall performace of this class as well as organizing it
  * 2.1.Stop foreach loops when done with 'break;'!
  * 3.XML documentation
+ * 4.Change console color in Renderer
  */
 
 // DONT FORGET XML DOCUMENTATION!!!!!!!
@@ -63,12 +64,11 @@ namespace _18GhostsGame
             byte line = 0;
             byte[] ghostPos;
             // Used to not print carpets when a ghost is there
-            bool ghostSpot = false;
             Symbols symbol = Symbols.blank;
 
             // Printing starts
             // Print the first horizontal lines
-            Console.Write(" _____ _____ _____ _____ _____\n");
+            Renderer.PrintHorizontalLines();
 
             // Print all the upcoming lines to make a 5x5 board
             for (byte i = 0; i < 5; i++)
@@ -77,13 +77,11 @@ namespace _18GhostsGame
                 line++;
 
                 // Print vertical lines
-                Console.Write(
-                       "|     |     |     |     |     |\n");
+                Renderer.PrintVerticalLines();
 
                 // Printing middle lines
                 for (byte j = 0; j < 31; j++)
                 {
-                    ghostSpot = false;
                     // Not a column space (Middle Spaces)
                     if (j % 6 != 0)
 
@@ -95,19 +93,19 @@ namespace _18GhostsGame
                         // Red Portal place
                         else if (j == 15 && line == 1)
                         {
-                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Renderer.SetConsoleColor('R');                            
                             symbol = GetPortalSymbol(RedPortalState);
                         }
                         // Yellow Portal place
                         else if (j == 27 && line == 3)
                         {
-                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            Renderer.SetConsoleColor('Y');
                             symbol = GetPortalSymbol(YellowPortalState);
                         }
                         // Blue Portal place
                         else if (j == 15 && line == 5)
                         {
-                            Console.ForegroundColor = ConsoleColor.DarkCyan;
+                            Renderer.SetConsoleColor('C');
                             symbol = GetPortalSymbol(BluePortalState);
                         }
 
@@ -121,8 +119,8 @@ namespace _18GhostsGame
                                 ghostPos = NormalizePositions(ghost);
                                 if (ghostPos[0] == line && ghostPos[1] == j)
                                 {
-                                    PrintGhostSymbols(ghostSymsP1, ghost, p1Ghosts);
-                                    ghostSpot = true;
+                                    Renderer.PrintSymbol
+                                        (ghostSymsP1, ghost, p1Ghosts);
                                     j++;
                                     break;
                                 }
@@ -135,14 +133,14 @@ namespace _18GhostsGame
                                 ghostPos = NormalizePositions(ghost);
                                 if (ghostPos[0] == line && ghostPos[1] == j)
                                 {
-                                    PrintGhostSymbols(ghostSymsP2, ghost, p2Ghosts);
-                                    ghostSpot = true;
+                                    Renderer.PrintSymbol
+                                        (ghostSymsP2, ghost, p2Ghosts);
                                     j++;
                                     break;
                                 }
                             }
                             // Print carpet if there is no ghost there
-                            if (ghostSpot == false)
+                            if (j % 3 == 0)
                             {
                                 symbol = Symbols.carpet;
                                 SetCarpetColor(line, j);
@@ -157,136 +155,20 @@ namespace _18GhostsGame
                     else
                         symbol = Symbols.column;
 
-                    Console.Write(((char)symbol).ToString());
+                    Renderer.PrintSymbol(symbol);
+                    Renderer.ResetConsoleColor();
                     Console.ResetColor();
 
                 }
 
                 // Print cell bottom lines
-                Console.Write("\n|_____|_____|_____|_____|_____|\n");
+                Renderer.PrintBottomLines();
 
 
             }
             // Print the Dungeon
-            Console.Write("|        D U N G E O N        |\n" +
-                "|      ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾      |\n" +
-                "|       P1. .|");
-
-            PrintDungeonGhostSymbol(ghostSymsP1, p1Ghosts);
-            Console.Write("|      |\n" +
-                "|       P2. .|");
-
-            PrintDungeonGhostSymbol(ghostSymsP2, p2Ghosts);
-            Console.Write("|      |\n" +
-                " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ ");
-
-            // Debugging
-            Console.WriteLine("\nGhost1:a\nGhost2:b\nGhost3:c\nMirror:¤ \nɔ q ɐ");
-        }
-
-        private void PrintGhostSymbols
-            (Symbols[] ghostSymbols, byte targetGhost, byte[,] allGhosts)
-        {
-            Symbols ghostSymbol = Symbols.blank;
-            byte counter = 0;
-
-            foreach (int ghost in allGhosts)
-            {
-                if (ghostSymbol == Symbols.blank)
-                    counter++;
-                else
-                    break;
-
-                // Check for the same target ghost number on player ghosts
-                if (ghost == targetGhost)
-                    switch (counter)
-                    {
-                        case 1:
-                        case 4:
-                        case 7:
-                            ghostSymbol = ghostSymbols[0];
-                            break;
-                        case 2:
-                        case 5:
-                        case 8:
-                            ghostSymbol = ghostSymbols[1];
-                            break;
-                        case 3:
-                        case 6:
-                        case 9:
-                            ghostSymbol = ghostSymbols[2];
-                            break;
-                    }
-            }
-            // Check corresponding ghost color
-            // Red ghosts
-            if (counter <= 3)
-                Console.ForegroundColor = ConsoleColor.Red;
-            // Blue ghosts
-            else if (counter <= 6)
-                Console.ForegroundColor = ConsoleColor.Blue;
-            // Yellow ghosts
-            else
-                Console.ForegroundColor = ConsoleColor.Yellow;
-
-            // Print
-            Console.Write(((char)ghostSymbol).ToString());
-            Console.ResetColor();
-        }
-
-        private void PrintDungeonGhostSymbol
-            (Symbols[] ghostSymbols, byte[,] allGhosts)
-        {
-            byte counter = 0;
-            Symbols[] ghostsToPrint = new Symbols[9];
-
-            foreach (byte ghost in allGhosts)
-            {
-                counter++;
-                if (ghost == 0)
-                    switch (counter)
-                    {
-                        case 1:
-                        case 4:
-                        case 7:
-                            ghostsToPrint[counter - 1] = ghostSymbols[0];
-                            break;
-                        case 2:
-                        case 5:
-                        case 8:
-                            ghostsToPrint[counter - 1] = ghostSymbols[1];
-                            break;
-                        case 3:
-                        case 6:
-                        case 9:
-                            ghostsToPrint[counter - 1] = ghostSymbols[2];
-                            break;
-                    }
-            }
-
-            // Re-use counter to print 
-            counter = 0;
-
-            foreach (Symbols ghost in ghostsToPrint)
-            {
-                counter++;
-
-                // Red Ghosts
-                if (counter == 1)
-                    Console.ForegroundColor = ConsoleColor.Red;
-
-                // Blue Ghosts
-                else if (counter == 4)
-                    Console.ForegroundColor = ConsoleColor.Blue;
-
-                // Yellow Ghosts
-                else if (counter == 6)
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-
-                Console.Write(((char)ghost).ToString());
-            }
-            Console.ResetColor();
-        }
+            Renderer.DrawDungeon(p1Ghosts, ghostSymsP1, p2Ghosts, ghostSymsP2);
+        }        
 
         private void SetCarpetColor(byte line, byte j)
         {
@@ -295,22 +177,19 @@ namespace _18GhostsGame
                 line == 3 && (j == 3 || j == 15) ||
                 line == 4 && j == 27 ||
                 line == 5 && j == 9)
-                Console.ForegroundColor =
-                    ConsoleColor.DarkRed;
+                Renderer.SetConsoleColor('R');
             // Blue carpets
             else if (line == 1 && (j == 3 || j == 21) ||
                 line == 3 && (j == 9 || j == 21) ||
                 line == 4 && j == 3 ||
                 line == 5 && j == 21)
-                Console.ForegroundColor =
-                    ConsoleColor.Cyan;
+                Renderer.SetConsoleColor('C');
             // Yellow carpets
             else if (line == 2 && (j == 3 || j == 15 ||
                 j == 27) ||
                 line == 4 && j == 15 ||
                 line == 5 && (j == 3 || j == 27))
-                Console.ForegroundColor =
-                    ConsoleColor.DarkYellow;
+                Renderer.SetConsoleColor('Y');
         }
 
         private byte[] NormalizePositions(byte ghost)
@@ -382,6 +261,11 @@ namespace _18GhostsGame
                 case 20:
                 case 25:
                     finalCharacter = 27;
+                    break;
+
+                default:
+                    Renderer.Error("FindCharacterInLine() in Board.cs",
+                        "Given Ghost position doesn't exist");
                     break;
 
             }
@@ -460,12 +344,8 @@ namespace _18GhostsGame
                     break;
 
                 default:
-                    // Change text color
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"\nERROR\n " +
-                        $"Position: {portal} Doesn't exist.\n");
-                    // Reset text color back to white
-                    Console.ResetColor();
+                    Renderer.Error("PortalRotate() in Board.cs", 
+                        "Given rotation doesn't exist");
                     break;
             }
             return newPosition;
@@ -498,12 +378,8 @@ namespace _18GhostsGame
                     break;
 
                 default:
-                    // Change text color
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"\nERROR\n " +
-                        $"Portal Color: {portal} Doesn't exist.\n");
-                    // Reset text color back to white
-                    Console.ResetColor();
+                    Renderer.Error("GetPortalSymbol() in Board.cs",
+                        "Given rotation doesn't exist");
                     break;
             }
             return symbolToReturn;
@@ -528,12 +404,8 @@ namespace _18GhostsGame
                     break;
 
                 default:
-                    // Change text color
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"\nERROR\n " +
-                        $"Ghost color: {color} Doesn't exist.\n");
-                    // Reset text color back to white
-                    Console.ResetColor();
+                    Renderer.Error("GhostDead() in Board.cs",
+                        "Given color doesn't exist");
                     break;
             }
         }
