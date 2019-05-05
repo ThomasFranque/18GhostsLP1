@@ -60,7 +60,8 @@ namespace _18GhostsGame
                 for (byte j = 0; j < 31; j++)
                 {
                     // Not a column space (Middle Spaces)
-                    if (j % 6 != 0 && j % 3 == 0)
+                    if (!Checker.CheckInBoard("column", line, j) &&
+                        Checker.CheckInBoard("middle", line, j))
                         // Red Portal place
                         if (Checker.CheckInBoard("red", line, j))
                         {
@@ -133,7 +134,7 @@ namespace _18GhostsGame
                             symbol = Symbols.blank;
 
                     // Vertical line space
-                    else if (j % 6 == 0)
+                    else if (!Checker.CheckInBoard("column", line, j))
                         symbol = Symbols.column;
 
                     // Empty spot

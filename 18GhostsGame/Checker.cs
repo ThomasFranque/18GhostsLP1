@@ -34,6 +34,10 @@ namespace _18GhostsGame
                     if (j == 27 && line == 3)
                         isHere = true;
                     break;
+                case "column":
+                    if (j % 6 == 0)
+                        isHere = true;
+                    break;
                 // Middle spots
                 case "middle":
                     if (j % 3 == 0)
