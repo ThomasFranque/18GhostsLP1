@@ -12,9 +12,13 @@ namespace _18GhostsGame
 
             board.Draw(player1.GetGhosts(), player2.GetGhosts());
 
-            player1.SetGhostPosToZero();
+            player1.Move();
+
+            //player1.SetGhostPosToZero();
             board.GhostDead("yellow");
             board.Draw(player1.GetGhosts(), player2.GetGhosts());
+
+            
 
             /* TO READ ACTIONS WITHOUT PRESSING ENTER
             switch (Console.ReadKey())
