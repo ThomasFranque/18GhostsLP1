@@ -4,11 +4,8 @@ using System.Text;
 
 
 /* TO-DO
- * 1.Create method for error message (maybe not in this class?)
- * 2.Improve the overall performace of this class as well as organizing it
- * 2.1.Stop foreach loops when done with 'break;'!
- * 3.XML documentation
- * 4.Change console color in Renderer
+ * 1.Improve the overall performace of this class as well as organizing it
+ * 2.XML documentation
  */
 
 // DONT FORGET XML DOCUMENTATION!!!!!!!
@@ -16,18 +13,12 @@ using System.Text;
 namespace _18GhostsGame
 {
     /// <summary>
-    /// Will only print elements in the console, making the required math to 
-    /// do so, control the state and rotation of portals and mirrors.
+    /// W.
     /// </summary>
     class Board
     {
+        Portal portal = new Portal();
         // Variables
-
-        public string RedPortalState { get; private set; }
-
-        public string BluePortalState { get; private set; }
-
-        public string YellowPortalState { get; private set; }
 
         private readonly Symbols[] ghostSymsP1, ghostSymsP2;
 
@@ -35,10 +26,6 @@ namespace _18GhostsGame
         {
             Renderer.SetConsoleEncoding();
             
-            // Portals default positions
-            RedPortalState = "up";
-            BluePortalState = "down";
-            YellowPortalState = "right";
 
             // Getting the player symbols (ghost symbols from each player)
             ghostSymsP1 = new Symbols[3]
@@ -73,24 +60,28 @@ namespace _18GhostsGame
                 for (byte j = 0; j < 31; j++)
                 {
                     // Not a column space (Middle Spaces)
-                    if (j % 6 != 0)
+                    if (j % 6 != 0 && j % 3 == 0)
                         // Red Portal place
                         if (Checker.CheckInBoard("red", line, j))
                         {
                             Renderer.SetConsoleColor('R');
-                            symbol = GetPortalSymbol(RedPortalState);
+                            Renderer.PrintPortalSymbol(portal.RedPortalState);
+                            j++;
                         }
                         // Yellow Portal place
                         else if (Checker.CheckInBoard("yellow", line, j))
                         {
                             Renderer.SetConsoleColor('Y');
-                            symbol = GetPortalSymbol(YellowPortalState);
+                            Renderer.PrintPortalSymbol
+                                (portal.YellowPortalState);
+                            j++;
                         }
                         // Blue Portal place
                         else if (Checker.CheckInBoard("blue", line, j))
                         {
                             Renderer.SetConsoleColor('C');
-                            symbol = GetPortalSymbol(BluePortalState);
+                            Renderer.PrintPortalSymbol(portal.BluePortalState);
+                            j++;
                         }
 
                         // Place carpets / ghosts (empty middle spaces)
@@ -100,7 +91,7 @@ namespace _18GhostsGame
                             // Player 1 ghosts
                             foreach (byte ghost in p1Ghosts)
                             {
-                                ghostPos = 
+                                ghostPos =
                                     Convertions.NormalizePositions(ghost);
                                 if (Checker.CheckInBoard(ghostPos, line, j))
                                 {
@@ -115,7 +106,7 @@ namespace _18GhostsGame
                             {
                                 symbol = Symbols.blank;
 
-                                ghostPos = 
+                                ghostPos =
                                     Convertions.NormalizePositions(ghost);
                                 if (Checker.CheckInBoard(ghostPos, line, j))
                                 {
@@ -142,8 +133,12 @@ namespace _18GhostsGame
                             symbol = Symbols.blank;
 
                     // Vertical line space
-                    else
+                    else if (j % 6 == 0)
                         symbol = Symbols.column;
+
+                    // Empty spot
+                    else
+                        symbol = Symbols.blank;
 
                     Renderer.PrintSymbol(symbol);
                     Renderer.ResetConsoleColor();
@@ -153,92 +148,14 @@ namespace _18GhostsGame
 
                 // Print cell bottom lines
                 Renderer.PrintBottomLines();
-
-
             }
             // Print the Dungeon
             Renderer.DrawDungeon(p1Ghosts, ghostSymsP1, p2Ghosts, ghostSymsP2);
         }        
 
-        /// Returns the new rotation, clockwise, of the given portal
-        private string PortalRotate(string portal)
-        {
-            string newPosition = "";
-            switch (portal)
-            {
-                case "up":
-                    newPosition = "right";
-                    break;
-
-                case "down":
-                    newPosition = "left";
-                    break;
-
-                case "right":
-                    newPosition = "down";
-                    break;
-
-                case "left":
-                    newPosition = "up";
-                    break;
-
-                default:
-                    Renderer.Error("PortalRotate() in Board.cs", 
-                        "Given rotation doesn't exist");
-                    break;
-            }
-            return newPosition;
-        }
-        
-        // Know wich symbol represents up down left and right
-        private Symbols GetPortalSymbol(string portal)
-        {
-            Symbols symbolToReturn;
-            symbolToReturn = Symbols.blank;
-
-            switch (portal)
-            {
-                case "up":
-                    symbolToReturn = Symbols.portalUp;
-                    break;
-                case "down":
-                    symbolToReturn = Symbols.portalDown;
-                    break;
-                case "right":
-                    symbolToReturn = Symbols.portalRight;
-                    break;
-                case "left":
-                    symbolToReturn = Symbols.portalLeft;
-                    break;
-
-                default:
-                    Renderer.Error("GetPortalSymbol() in Board.cs",
-                        "Given rotation doesn't exist");
-                    break;
-            }
-            return symbolToReturn;
-        }
-
-        // Used outside of class to know what ghost died
         public void GhostDead(string color)
         {
-            switch (color)
-            {
-                case "red":
-                    RedPortalState = PortalRotate(RedPortalState);
-                    break;
-                case "blue":
-                    BluePortalState = PortalRotate(BluePortalState);
-                    break;
-                case "yellow":
-                    YellowPortalState = PortalRotate(YellowPortalState);
-                    break;
-
-                default:
-                    Renderer.Error("GhostDead() in Board.cs",
-                        "Given color doesn't exist");
-                    break;
-            }
+            portal.Rotate(color);
         }
     }
 }

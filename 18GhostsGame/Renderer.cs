@@ -65,6 +65,30 @@ namespace _18GhostsGame
             ResetConsoleColor();
         }
 
+        // Know wich symbol represents up down left and right
+        public static void PrintPortalSymbol(string portal)
+        {
+            Symbols symbolToPrint;
+            symbolToPrint = Symbols.blank;
+
+            switch (portal)
+            {
+                case "up":
+                    symbolToPrint = Symbols.portalUp;
+                    break;
+                case "down":
+                    symbolToPrint = Symbols.portalDown;
+                    break;
+                case "right":
+                    symbolToPrint = Symbols.portalRight;
+                    break;
+                case "left":
+                    symbolToPrint = Symbols.portalLeft;
+                    break;
+            }
+            PrintSymbol(symbolToPrint);
+        }
+
         //
         public static void PrintVerticalLines()
         {
@@ -157,8 +181,8 @@ namespace _18GhostsGame
                 Console.Write(((char)ghost).ToString());
             }
             Console.ResetColor();
-        }
-              
+        }        
+
         //
         public static void SetConsoleColor(char color)
         {
@@ -209,5 +233,35 @@ namespace _18GhostsGame
             // Reset text color back to white
             Console.ResetColor();
         }
+        
+        //
+        public static void SetConsoleEncoding()
+        {
+            // Readying the console text for unicode
+            Console.OutputEncoding = Encoding.UTF8;
+        }
+
+        public static void SetCarpetColor(byte line, byte j)
+        {
+            // Red carpets
+            if (line == 1 && (j == 9 || j == 27) ||
+                line == 3 && (j == 3 || j == 15) ||
+                line == 4 && j == 27 ||
+                line == 5 && j == 9)
+                SetConsoleColor('R');
+            // Blue carpets
+            else if (line == 1 && (j == 3 || j == 21) ||
+                line == 3 && (j == 9 || j == 21) ||
+                line == 4 && j == 3 ||
+                line == 5 && j == 21)
+                SetConsoleColor('C');
+            // Yellow carpets
+            else if (line == 2 && (j == 3 || j == 15 ||
+                j == 27) ||
+                line == 4 && j == 15 ||
+                line == 5 && (j == 3 || j == 27))
+                SetConsoleColor('Y');
+        }
+
     }
 }
