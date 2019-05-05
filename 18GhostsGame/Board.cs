@@ -117,19 +117,19 @@ namespace _18GhostsGame
                                     break;
                                 }
                             }
-                            // Print carpet if there is no ghost there
+                            // Carpets if there is no ghost there
                             if (Checker.CheckInBoard("middle", line, j))
                             {
                                 symbol = Symbols.carpet;
                                 Renderer.SetCarpetColor(line, j);
                             }
 
-                            // Mirrors
+                            // Mirrors if there is no ghost there
                             if (Checker.CheckInBoard("mirror", line, j))
                                 symbol = Symbols.mirrors;
                         }
 
-                        // Fill blank Spaces in line
+                        // Ret symbol to blank Spaces in line
                         else
                             symbol = Symbols.blank;
 
