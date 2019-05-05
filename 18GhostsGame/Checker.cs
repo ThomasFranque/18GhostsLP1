@@ -59,5 +59,19 @@ namespace _18GhostsGame
 
             return isHere;
         }
+
+        // Check if given direction has a ghost there
+        public static bool[] CheckAdjacentPos
+            (string direction, byte target, 
+            byte[,] playerGhosts, byte[,] enemyGhosts)
+        {
+            // occupied[0] = Ghost There
+            // occupied[1] = Enemy Ghost There
+            bool[] occupied = new bool[] { false, false };
+
+
+
+            return occupied;
+        }
     }
 }

@@ -6,21 +6,18 @@ namespace _18GhostsGame
 {
     static class GameSettings
     {
+        private static byte toWin;
         public static byte ToWin
         {
-            get => ToWin;
-            set { if (value <= 3) ToWin = value; }
+            get => toWin;
+            set
+            {
+                if (value <= 3)
+                    toWin = value;
+            }
         }
 
-        public static bool Teams { get; set; }
-
-        public static byte Rounds { get; set; }
-
-        // If max rounds == null there is no round limit
-        public static byte MaxRounds
-        {
-            get => MaxRounds;
-            set { if (value >= 7) MaxRounds = value; }
-        }
+        // Number of complete games to play
+        public static byte Rounds { get; set; } = 1;
     }
 }

@@ -168,15 +168,15 @@ namespace _18GhostsGame
 
                 // Red Ghosts
                 if (counter == 1)
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    SetConsoleColor('r');
 
                 // Blue Ghosts
                 else if (counter == 4)
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    SetConsoleColor('b');
 
                 // Yellow Ghosts
                 else if (counter == 6)
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    SetConsoleColor('y');
 
                 Console.Write(((char)ghost).ToString());
             }
@@ -262,6 +262,5 @@ namespace _18GhostsGame
                 line == 5 && (j == 3 || j == 27))
                 SetConsoleColor('Y');
         }
-
     }
 }

@@ -24,8 +24,7 @@ namespace _18GhostsGame
 
         public Board()
         {
-            Renderer.SetConsoleEncoding();
-            
+            Renderer.SetConsoleEncoding();            
 
             // Getting the player symbols (ghost symbols from each player)
             ghostSymsP1 = new Symbols[3]
