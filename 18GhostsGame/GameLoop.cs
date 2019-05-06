@@ -38,8 +38,6 @@ namespace _18GhostsGame
                 case "A":
                 case "a":
                 
-                    //Player1 atacks
-                    player1.Atacks();
                     break;
             }
         }*/

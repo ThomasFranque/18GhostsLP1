@@ -24,7 +24,7 @@ namespace _18GhostsGame
 
         public Board()
         {
-            Renderer.SetConsoleEncoding();            
+            BoardRenderer.SetConsoleEncoding();            
 
             // Getting the player symbols (ghost symbols from each player)
             ghostSymsP1 = new Symbols[3]
@@ -44,7 +44,7 @@ namespace _18GhostsGame
 
             // Printing starts
             // Print the first horizontal lines
-            Renderer.PrintHorizontalLines();
+            BoardRenderer.PrintHorizontalLines();
 
             // Print all the upcoming lines to make a 5x5 board
             for (byte i = 0; i < 5; i++)
@@ -53,49 +53,49 @@ namespace _18GhostsGame
                 line++;
 
                 // Print vertical lines
-                Renderer.PrintVerticalLines();
+                BoardRenderer.PrintVerticalLines();
 
                 // Printing middle lines
                 for (byte j = 0; j < 31; j++)
                 {
                     // Not a column space (Middle Spaces)
-                    if (!Checker.CheckInBoard("column", line, j) &&
-                        Checker.CheckInBoard("middle", line, j))
+                    if (!BoardChecker.CheckInBoard("column", line, j) &&
+                        BoardChecker.CheckInBoard("middle", line, j))
                         // Red Portal place
-                        if (Checker.CheckInBoard("red", line, j))
+                        if (BoardChecker.CheckInBoard("red", line, j))
                         {
-                            Renderer.SetConsoleColor('R');
-                            Renderer.PrintPortalSymbol(portal.RedPortalState);
+                            BoardRenderer.SetConsoleColor('R');
+                            BoardRenderer.PrintPortalSymbol(portal.RedPortalState);
                             j++;
                         }
                         // Yellow Portal place
-                        else if (Checker.CheckInBoard("yellow", line, j))
+                        else if (BoardChecker.CheckInBoard("yellow", line, j))
                         {
-                            Renderer.SetConsoleColor('Y');
-                            Renderer.PrintPortalSymbol
+                            BoardRenderer.SetConsoleColor('Y');
+                            BoardRenderer.PrintPortalSymbol
                                 (portal.YellowPortalState);
                             j++;
                         }
                         // Blue Portal place
-                        else if (Checker.CheckInBoard("blue", line, j))
+                        else if (BoardChecker.CheckInBoard("blue", line, j))
                         {
-                            Renderer.SetConsoleColor('C');
-                            Renderer.PrintPortalSymbol(portal.BluePortalState);
+                            BoardRenderer.SetConsoleColor('C');
+                            BoardRenderer.PrintPortalSymbol(portal.BluePortalState);
                             j++;
                         }
 
                         // Place carpets / ghosts (empty middle spaces)
                         // Keep in mind: Player 1 ghosts will allways be on top
-                        else if (Checker.CheckInBoard("middle", line, j))
+                        else if (BoardChecker.CheckInBoard("middle", line, j))
                         {
                             // Player 1 ghosts
                             foreach (byte ghost in p1Ghosts)
                             {
                                 ghostPos =
                                     Convertions.NormalizePositions(ghost);
-                                if (Checker.CheckInBoard(ghostPos, line, j))
+                                if (BoardChecker.CheckInBoard(ghostPos, line, j))
                                 {
-                                    Renderer.PrintSymbol
+                                    BoardRenderer.PrintSymbol
                                         (ghostSymsP1, ghost, p1Ghosts);
                                     j++;
                                     break;
@@ -108,23 +108,23 @@ namespace _18GhostsGame
 
                                 ghostPos =
                                     Convertions.NormalizePositions(ghost);
-                                if (Checker.CheckInBoard(ghostPos, line, j))
+                                if (BoardChecker.CheckInBoard(ghostPos, line, j))
                                 {
-                                    Renderer.PrintSymbol
+                                    BoardRenderer.PrintSymbol
                                         (ghostSymsP2, ghost, p2Ghosts);
                                     j++;
                                     break;
                                 }
                             }
                             // Carpets if there is no ghost there
-                            if (Checker.CheckInBoard("middle", line, j))
+                            if (BoardChecker.CheckInBoard("middle", line, j))
                             {
                                 symbol = Symbols.carpet;
-                                Renderer.SetCarpetColor(line, j);
+                                BoardRenderer.SetCarpetColor(line, j);
                             }
 
                             // Mirrors if there is no ghost there
-                            if (Checker.CheckInBoard("mirror", line, j))
+                            if (BoardChecker.CheckInBoard("mirror", line, j))
                                 symbol = Symbols.mirrors;
                         }
 
@@ -133,24 +133,24 @@ namespace _18GhostsGame
                             symbol = Symbols.blank;
 
                     // Vertical line space
-                    else if (Checker.CheckInBoard("column", line, j))
+                    else if (BoardChecker.CheckInBoard("column", line, j))
                         symbol = Symbols.column;
 
                     // Empty spot
                     else
                         symbol = Symbols.blank;
 
-                    Renderer.PrintSymbol(symbol);
-                    Renderer.ResetConsoleColor();
+                    BoardRenderer.PrintSymbol(symbol);
+                    BoardRenderer.ResetConsoleColor();
                     Console.ResetColor();
 
                 }
 
                 // Print cell bottom lines
-                Renderer.PrintBottomLines();
+                BoardRenderer.PrintBottomLines();
             }
             // Print the Dungeon
-            Renderer.DrawDungeon(p1Ghosts, ghostSymsP1, p2Ghosts, ghostSymsP2);
+            BoardRenderer.DrawDungeon(p1Ghosts, ghostSymsP1, p2Ghosts, ghostSymsP2);
         }        
 
         public void GhostDead(string color)
