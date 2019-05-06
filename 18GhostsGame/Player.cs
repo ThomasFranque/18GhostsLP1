@@ -12,13 +12,8 @@ namespace _18GhostsGame
          Yellow Ghosts = ghosts[1,~];
         */
 
-        // ####### HEY THIS IS YOUR CAPTAIN SPEAKING #######
-        // Tenta tornar a variavel ghosts numa propriedade antes de começares
-
         private byte[,] ghosts;
         private string playerNum;
-
-
 
 
         public byte [,]Ghosts
@@ -45,36 +40,28 @@ namespace _18GhostsGame
         public void Move()
         {
             string ghostColor;
-            string wichGhost;
+            string whichGhost;
             string direction;
 
-            //
-            //
-            //DEPOIS ALTERAR PARA A CLASSE RENDERER
-            Console.WriteLine("Wich color?");
-
+            // #### To work with in the future ####
+            byte[] ghostToMove = new byte[2] { 0 , 0 };
+            
+            
             //Receive the ghost's color
-            ghostColor = Console.ReadLine();
-
-            //
-            //
-            //DEPOIS ALTERAR PARA A CLASSE RENDERER
-            Console.WriteLine("Wich ghost do you want to move?");
+            ghostColor = Inputs.PlayerInput("What color?");
 
             //Receive wich ghost is
-            wichGhost = Console.ReadLine();
-
-            Console.WriteLine("In witch direction?");
+            whichGhost = Inputs.PlayerInput("Wich ghost do you want to move?");
 
             //Receive the direction
-            direction = Console.ReadLine();
+            direction = Inputs.PlayerInput("In witch direction?");
 
 
             //Check the color, letter (ghost) and direction
             switch (ghostColor)
             {
             case "red":
-                    switch (wichGhost)
+                    switch (whichGhost)
                     {
                         case "a":
                             switch (direction)
@@ -185,7 +172,7 @@ namespace _18GhostsGame
                     }
                     break;
             case "blue":
-                    switch (wichGhost)
+                    switch (whichGhost)
                     {
                         case "a":
                             switch (direction)
@@ -293,7 +280,7 @@ namespace _18GhostsGame
 
 
             case "yellow":
-                    switch (wichGhost)
+                    switch (whichGhost)
                     {
                         case "a":
                             switch (direction)
@@ -404,7 +391,7 @@ namespace _18GhostsGame
 
         }
 
-        public void Attack()
+        private void MoveGhost()
         {
 
         }

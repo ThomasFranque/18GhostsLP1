@@ -30,12 +30,12 @@ namespace _18GhostsGame
             // PLACE GHOSTS LOOP
 
             // Player 1
-            // Choose wich color of ghost
-            // Choose wich number of ghost
+            // Choose which color of ghost
+            // Choose which number of ghost
 
             //Player 2
-            // Choose wich color of ghost
-            // Choose wich number of ghost
+            // Choose which color of ghost
+            // Choose which number of ghost
 
             // If all 18 placed, move on
 
@@ -45,7 +45,7 @@ namespace _18GhostsGame
             // What do you want to do?
             // Move / attack
             // Choose what color of ghost to move
-            // Choose wich ghost of that color to move
+            // Choose which ghost of that color to move
             // Move
             // up down left or right (u,d,l,r / w,a,s,d)
             // Check who wins or nothing
@@ -58,7 +58,7 @@ namespace _18GhostsGame
             // What do you want to do?
             // Move / attack
             // Choose what color of ghost to move
-            // Choose wich ghost of that color to move
+            // Choose which ghost of that color to move
             // Move
             // Check who wins or nothing
 

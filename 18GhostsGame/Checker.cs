@@ -80,7 +80,7 @@ namespace _18GhostsGame
         // This method is for returning the given ghost 
         // (target is for the single ghost and allGhosts is for 
         // where it is contained)
-        // finalGhost[0] = Wihch ghost: first, second or third
+        // finalGhost[0] = Which ghost: first, second or third
         // finalGhost[1] = Color of the ghost: red, blue, yellow
         public static byte[] CheckAdjacentPosEnemy
             (char direction, byte targetGhost, byte[,] enemyGhosts)
