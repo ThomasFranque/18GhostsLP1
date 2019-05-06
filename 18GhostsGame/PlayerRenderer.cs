@@ -8,7 +8,7 @@ namespace _18GhostsGame
     {
 
         //Print given text
-        public static void PrintText(string text)
+        public static void PrintColoredText(string text)
         {
             bool color = false;
             foreach (char letter in text)
@@ -30,11 +30,32 @@ namespace _18GhostsGame
                     color = !color;
                 }
                 // Check for ending
-                if ((letter == ' ' || letter == '>') && color == true)
+                if ((letter == ' ' || letter == '>') && color)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     color = !color;
                 }
+                if (letter == '?')
+                    color = !color;
+
+                Console.Write(letter);
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public static void PrintText(string text)
+        {
+            bool color = false;
+            foreach (char letter in text)
+            {
+                // Check for ending
+                if (color)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    color = !color;
+                }
+                if (letter == '?')
+                    color = !color;
 
                 Console.Write(letter);
             }

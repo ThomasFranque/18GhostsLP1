@@ -10,14 +10,14 @@ namespace _18GhostsGame
         // (target is for the single ghost and allGhosts is for 
         // where it is contained)
         // finalGhost is the ghost in the target location if it returns
-        // 0,0 there is no ghost there
+        // 4,0 there is no ghost there
         // finalGhost[0] = Which ghost: first, second or third
         // finalGhost[1] = Color of the ghost: red, blue, yellow
         public static byte[] CheckAdjacentPos
             (char direction, byte targetGhost, byte[,] enemyGhosts)
         {
             // occupied = Ghost There
-            byte[] enemyGhost = new byte[2] { 0, 0 };
+            byte[] enemyGhost = new byte[2] { 4, 0 };
             byte targetPos;
             targetPos = DesiredPosition(direction, targetGhost);
 

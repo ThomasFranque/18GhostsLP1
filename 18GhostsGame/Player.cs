@@ -6,9 +6,12 @@ namespace _18GhostsGame
 {
     class Player
     {
-        Ghosts ghosts;
-        byte playerNum;
-        
+        private Ghosts ghosts;
+
+        private byte playerNum;
+
+        public byte[,] EnemyGhosts { get; set; } = new byte[3, 3] { { 0, 2, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+
         // Constructor
         public Player(byte playerNum)
         {
@@ -18,11 +21,14 @@ namespace _18GhostsGame
 
         public void Action()
         {
-            ghosts.Move();
+            ghosts.Move(EnemyGhosts);
         }
+
 
         public byte GetPlayerNum() => playerNum;
 
         public byte[,] GetGhosts() => ghosts.AllGhosts;
+
+
     }
 }

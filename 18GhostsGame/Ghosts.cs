@@ -28,6 +28,7 @@ namespace _18GhostsGame
 
         }
 
+
         // Constructor
         public Ghosts()
         {
@@ -39,7 +40,7 @@ namespace _18GhostsGame
             ghosts = new byte[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
         }
 
-        public void Move()
+        public void Move(byte[,] enemyGhosts)
         {
             char direction = ' ';
             ConsoleKeyInfo input;
@@ -47,7 +48,7 @@ namespace _18GhostsGame
 
 
             //Receive the ghost's color
-            PlayerRenderer.PrintText("What color?\n" +
+            PlayerRenderer.PrintColoredText("What color? \n" +
                 "Red ...... <R> or <1>\n" +
                 "Blue ..... <B> or <2>\n" +
                 "Yellow ... <Y> or <3>\n");
@@ -68,7 +69,7 @@ namespace _18GhostsGame
                     ghostToMove[0] = 1;
                     break;
 
-                case ConsoleKey.C:
+                case ConsoleKey.Y:
                 case ConsoleKey.D3:
                     ghostToMove[0] = 2;
                     break;
@@ -79,7 +80,11 @@ namespace _18GhostsGame
             // Separate switches in private methods
             
             //Receive wich ghost is
-            PlayerRenderer.PrintText("Wich ghost do you want to move?\n");
+            PlayerRenderer.PrintText("Wich ghost do you want to move? \n" +
+                "a .... <A> or <1>\n" +
+                "b .... <B> or <2>\n" +
+                "c .... <C> or <3>\n");
+
 
             input = Console.ReadKey();
 
@@ -105,7 +110,11 @@ namespace _18GhostsGame
             }
 
             //Receive the direction
-            PlayerRenderer.PrintText("In which direction?\n");
+            PlayerRenderer.PrintText("In which direction? \n" +
+                "Up ....... <W> or <Up Arrow>\n" +
+                "Down ..... <S> or <Down Arrow>\n" +
+                "Left ..... <A> or <Left Arrow>\n" +
+                "Right .... <D> or <Right Arrow>\n");
 
             input = Console.ReadKey();
 
@@ -113,7 +122,7 @@ namespace _18GhostsGame
 
             switch (input.Key)
             {
-                case ConsoleKey.A:
+                case ConsoleKey.W:
                 case ConsoleKey.UpArrow:
                     direction = 'u';
                     break;
@@ -123,7 +132,7 @@ namespace _18GhostsGame
                     direction = 'd';
                     break;
 
-                case ConsoleKey.L:
+                case ConsoleKey.A:
                 case ConsoleKey.LeftArrow:
                     direction = 'l';
                     break;
@@ -134,7 +143,11 @@ namespace _18GhostsGame
                     break;
             }
 
-            ChangeGhostPos(ref ghosts[ghostToMove[0], ghostToMove[1]], direction);
+            if (GhostChecker.CheckAdjacentPos(direction, ghosts[ghostToMove[0], ghostToMove[1]], enemyGhosts)[0] == 4)
+                ChangeGhostPos(ref ghosts[ghostToMove[0], ghostToMove[1]], direction);
+            else
+                Console.WriteLine("Conflict");
+
         }
 
         private void ChangeGhostPos(ref byte targetGhost, char direction)

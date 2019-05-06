@@ -20,7 +20,11 @@ namespace _18GhostsGame
                 board.GhostDead("yellow");
                 board.Draw(player1.GetGhosts(), player2.GetGhosts());
 
-            }
+                player1.EnemyGhosts = player2.GetGhosts();
+
+                player2.EnemyGhosts = player1.GetGhosts();
+
+            }        
 
             
 
