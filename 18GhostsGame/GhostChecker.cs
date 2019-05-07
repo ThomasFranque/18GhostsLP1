@@ -93,7 +93,7 @@ namespace _18GhostsGame
         }
 
         // Where it will end up
-        private static byte DesiredPosition(char direction, byte targetGhost)
+        public static byte DesiredPosition(char direction, byte targetGhost)
         {
             byte targetPos = 0;
 

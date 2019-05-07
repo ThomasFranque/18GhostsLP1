@@ -35,7 +35,7 @@ namespace _18GhostsGame
         // Constructor
         public Ghosts()
         {
-            ghosts = new byte[3, 3] { { 0, 1, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+            ghosts = new byte[3, 3] { { 2, 1, 0 }, { 0, 10, 0 }, { 0, 0, 0 } };
             enemyTarget = new byte[2] { 4, 0 };
             interactions = new GhostInteractions();
         }
@@ -48,10 +48,14 @@ namespace _18GhostsGame
         public void Move(byte[,] enemyGhosts)
         {
             char direction = ' ';
-            ConsoleKeyInfo input;
             byte[] ghostToMove = new byte[2] { 0, 0 };
+            bool canMove = true;
+            byte desiredPosition;
+            byte counterColor = 0;
+            byte counterGhost = 0;
 
-
+            // ################################################################
+            ConsoleKeyInfo input;
             //Receive the ghost's color
             PlayerRenderer.PrintColoredText("What color? \n" +
                 "Red ...... <R> or <1>\n" +
@@ -80,10 +84,6 @@ namespace _18GhostsGame
                     break;
             }
 
-
-            // ###### TO-DO LATER ######
-            // Separate switches in private methods
-            
             //Receive wich ghost is
             PlayerRenderer.PrintText("Wich ghost do you want to move? \n" +
                 "a .... <A> or <1>\n" +
@@ -147,33 +147,82 @@ namespace _18GhostsGame
                     direction = 'r';
                     break;
             }
+            // ################################################################
+
             enemyTarget = GhostChecker.CheckAdjacentPos
-                (direction, ghosts[ghostToMove[0], ghostToMove[1]], 
+                (direction, ghosts[ghostToMove[0], ghostToMove[1]],
                 enemyGhosts);
+            desiredPosition = GhostChecker.DesiredPosition
+                (direction, AllGhosts[ghostToMove[0], ghostToMove[1]]);
 
+            // In case there is no enemy ghost there
             if (enemyTarget[0] == 4)
-                ChangeGhostPos
-                    (ref ghosts[ghostToMove[0], ghostToMove[1]], direction);
-            else
             {
-                // Check if color between ghosts are not equal to run conflict
-                // KILLING GHOSTS OCCURS HERE (THE ONLY METHOD THAT CONTROLLS 
-                //GHOSTS BESIDES THE PLAYER HIMSELF)
-
-                if (ghostToMove[0] != enemyTarget[0])
-                    if (!interactions.Conflict(ghostToMove, enemyTarget))
-                        KillGhost(ref ghosts[ghostToMove[0], ghostToMove[1]]);
-                    else
+                // Check ally ghost color
+                foreach (byte ghost in ghosts)
+                {
+                    if (ghost == desiredPosition &&
+                        ghostToMove[0] == counterColor)
                     {
-                        KillGhost
-                            (ref enemyGhosts[enemyTarget[0], enemyTarget[1]]);
-                        ChangeGhostPos
-                            (ref ghosts[ghostToMove[0], ghostToMove[1]], 
-                            direction);
 
+                        Console.WriteLine("COLOR:" + counterColor);
+                        canMove = !canMove;
+                    }
+                    else if (ghost == desiredPosition && canMove)
+                    {
+                        Console.WriteLine("COLOR:"+counterColor);
+                        if (!interactions.Conflict(ghostToMove, new byte[2] { counterColor, counterGhost } ))
+                        {
+                            KillGhost(ref ghosts[ghostToMove[0], ghostToMove[1]]);
+                            Portal.Rotate(ghostToMove[0]);
+                        }
+                        else
+                        {
+                            KillGhost(ref ghosts[counterColor, counterGhost]);
+                            Portal.Rotate(counterColor);    
+                        }
+                        canMove = !canMove;
                     }
 
+                    counterGhost++;
 
+                    if (counterGhost == 2)
+                    {
+                        counterGhost = 0;
+                        counterColor++;
+                    }
+                }
+
+                if (canMove)
+                {
+                    Console.WriteLine(ghostToMove);
+                    ChangeGhostPos
+                       (ref ghosts[ghostToMove[0], ghostToMove[1]],
+                       direction);
+                }
+            }
+            // In case there is a ghost there
+            // Check if color between ghosts are not equal to run conflict
+            // KILLING GHOSTS OCCURS HERE (THE ONLY METHOD THAT CONTROLLS 
+            //GHOSTS BESIDES THE PLAYER HIMSELF)
+            else if (ghostToMove[0] != enemyTarget[0])
+            {
+                // Ally ghost dies
+                if (!interactions.Conflict(ghostToMove, enemyTarget))
+                {
+                    KillGhost(ref ghosts[ghostToMove[0], ghostToMove[1]]);
+                    Portal.Rotate(ghostToMove[0]);
+                }
+                // Enemy Ghost dies
+                else
+                {
+                    KillGhost
+                        (ref enemyGhosts[enemyTarget[0], enemyTarget[1]]);
+                    ChangeGhostPos
+                        (ref ghosts[ghostToMove[0], ghostToMove[1]],
+                        direction);
+                    Portal.Rotate(enemyTarget[0]);
+                }
             }
         }
 
@@ -182,21 +231,23 @@ namespace _18GhostsGame
             switch (direction)
             {
                 case 'u':
-                    targetGhost -= 5;
+                    if (targetGhost > 5 && targetGhost != 0)
+                        targetGhost -= 5;
                     break;
                 case 'd':
-                    targetGhost += 5;
+                    if (targetGhost < 20 && targetGhost != 0)
+                        targetGhost += 5;
                     break;
                 case 'l':
                     if ((targetGhost != 1) && (targetGhost != 6) &&
                        (targetGhost != 11) && (targetGhost != 16) &&
-                       (targetGhost != 21))
+                       (targetGhost != 21) && targetGhost != 0)
                         targetGhost -= 1;
                     break;
                 case 'r':
                     if ((targetGhost != 5) && (targetGhost != 10) &&
                     (targetGhost != 15) && (targetGhost != 20) &&
-                    (targetGhost != 25))
+                    (targetGhost != 25) && targetGhost != 0)
                         targetGhost += 1;
                     break;
             }

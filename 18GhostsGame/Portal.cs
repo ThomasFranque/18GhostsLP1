@@ -4,15 +4,15 @@ using System.Text;
 
 namespace _18GhostsGame
 {
-    class Portal
+    static class Portal
     {
-        public string RedPortalState { get; private set; }
+        public static string RedPortalState { get; private set; }
 
-        public string BluePortalState { get; private set; }
+        public static string BluePortalState { get; private set; }
 
-        public string YellowPortalState { get; private set; }
+        public static string YellowPortalState { get; private set; }
 
-        public Portal()
+        static Portal()
         {
             // Portals default positions
             RedPortalState =    "up";
@@ -20,8 +20,25 @@ namespace _18GhostsGame
             YellowPortalState = "right";
         }
 
+        // Used outside of class to know what ghost died
+        public static void Rotate(byte color)
+        {
+            switch (color)
+            {
+                case 0:
+                    RedPortalState = NewRotation(RedPortalState);
+                    break;
+                case 1:
+                    BluePortalState = NewRotation(BluePortalState);
+                    break;
+                case 2:
+                    YellowPortalState = NewRotation(YellowPortalState);
+                    break;
+            }
+        }
+
         // Returns the new rotation, clockwise, of the given portal
-        private string NewRotation(string portal)
+        private static string NewRotation(string portal)
         {
             string newPosition = "";
             switch (portal)
@@ -45,21 +62,6 @@ namespace _18GhostsGame
             return newPosition;
         }
 
-        // Used outside of class to know what ghost died
-        public void Rotate(string color)
-        {
-            switch (color)
-            {
-                case "red":
-                    RedPortalState = NewRotation(RedPortalState);
-                    break;
-                case "blue":
-                    BluePortalState = NewRotation(BluePortalState);
-                    break;
-                case "yellow":
-                    YellowPortalState = NewRotation(YellowPortalState);
-                    break;
-            }
-        }
+        
     }
 }

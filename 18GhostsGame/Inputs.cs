@@ -13,6 +13,5 @@ namespace _18GhostsGame
 
             return playerInput;
         }
-
     }
 }

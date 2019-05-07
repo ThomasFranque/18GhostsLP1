@@ -4,8 +4,31 @@ using System.Text;
 
 namespace _18GhostsGame
 {
-    class GameLoop
+    static class GameLoop
     {
+        public static void Run()
+        {
+
+            Board board = new Board();
+            Player player1 = new Player(1);
+            Player player2 = new Player(2);
+
+            player2.ResetGhosts();
+            board.Draw(player1.GetGhosts(), player2.GetGhosts());
+
+            // TEMP GAMELOOP
+            while (true)
+            {
+                player1.EnemyGhosts = player2.GetGhosts();
+
+                player2.EnemyGhosts = player1.GetGhosts();
+
+                player1.Action();
+
+                //player1.SetGhostPosToZero();
+                board.Draw(player1.GetGhosts(), player2.GetGhosts());
+            }
+        }
         //TRYING TO MAKE A GAME LOOP, ask for some help
         /*public void Loop()
         {

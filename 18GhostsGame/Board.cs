@@ -17,7 +17,6 @@ namespace _18GhostsGame
     /// </summary>
     class Board
     {
-        Portal portal = new Portal();
         // Variables
 
         private readonly Symbols[] ghostSymsP1, ghostSymsP2;
@@ -65,7 +64,8 @@ namespace _18GhostsGame
                         if (BoardChecker.CheckInBoard("red", line, j))
                         {
                             BoardRenderer.SetConsoleColor('R');
-                            BoardRenderer.PrintPortalSymbol(portal.RedPortalState);
+                            BoardRenderer.PrintPortalSymbol
+                                (Portal.RedPortalState);
                             j++;
                         }
                         // Yellow Portal place
@@ -73,7 +73,7 @@ namespace _18GhostsGame
                         {
                             BoardRenderer.SetConsoleColor('Y');
                             BoardRenderer.PrintPortalSymbol
-                                (portal.YellowPortalState);
+                                (Portal.YellowPortalState);
                             j++;
                         }
                         // Blue Portal place
@@ -81,7 +81,7 @@ namespace _18GhostsGame
                         {
                             BoardRenderer.SetConsoleColor('C');
                             BoardRenderer.PrintPortalSymbol
-                                (portal.BluePortalState);
+                                (Portal.BluePortalState);
                             j++;
                         }
 
@@ -155,11 +155,6 @@ namespace _18GhostsGame
             // Print the Dungeon
             BoardRenderer.DrawDungeon
                 (p1Ghosts, ghostSymsP1, p2Ghosts, ghostSymsP2);
-        }        
-
-        public void GhostDead(string color)
-        {
-            portal.Rotate(color);
         }
     }
 }
