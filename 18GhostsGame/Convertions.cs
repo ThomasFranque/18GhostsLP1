@@ -68,7 +68,7 @@ namespace _18GhostsGame
                 case 14:
                 case 19:
                 case 24:
-                    finalCharacter = 21;
+                    finalCharacter = 21; 
                     break;
 
                 case 5:
@@ -80,7 +80,7 @@ namespace _18GhostsGame
                     break;
 
                 default:
-                    Renderer.Error("FindCharacterInLine() in Board.cs",
+                    BoardRenderer.Error("FindCharacterInLine() in Board.cs",
                         "Given Ghost position doesn't exist");
                     break;
 

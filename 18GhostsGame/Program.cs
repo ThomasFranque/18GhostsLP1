@@ -10,11 +10,26 @@ namespace _18GhostsGame
             Player player1 = new Player(1);
             Player player2 = new Player(2);
 
+            player2.ResetGhosts();
+
             board.Draw(player1.GetGhosts(), player2.GetGhosts());
 
-            player1.SetGhostPosToZero();
-            board.GhostDead("yellow");
-            board.Draw(player1.GetGhosts(), player2.GetGhosts());
+            // TEMP GAMELOOP
+            while (true)
+            {
+                player1.EnemyGhosts = player2.GetGhosts();
+
+                player2.EnemyGhosts = player1.GetGhosts();
+
+                player1.Action();
+
+                //player1.SetGhostPosToZero();
+                board.GhostDead("yellow");
+                board.Draw(player1.GetGhosts(), player2.GetGhosts());
+
+            }        
+
+            
 
             /* TO READ ACTIONS WITHOUT PRESSING ENTER
             switch (Console.ReadKey())
@@ -26,12 +41,12 @@ namespace _18GhostsGame
             // PLACE GHOSTS LOOP
 
             // Player 1
-            // Choose wich color of ghost
-            // Choose wich number of ghost
+            // Choose which color of ghost
+            // Choose which number of ghost
 
             //Player 2
-            // Choose wich color of ghost
-            // Choose wich number of ghost
+            // Choose which color of ghost
+            // Choose which number of ghost
 
             // If all 18 placed, move on
 
@@ -41,7 +56,7 @@ namespace _18GhostsGame
             // What do you want to do?
             // Move / attack
             // Choose what color of ghost to move
-            // Choose wich ghost of that color to move
+            // Choose which ghost of that color to move
             // Move
             // up down left or right (u,d,l,r / w,a,s,d)
             // Check who wins or nothing
@@ -54,7 +69,7 @@ namespace _18GhostsGame
             // What do you want to do?
             // Move / attack
             // Choose what color of ghost to move
-            // Choose wich ghost of that color to move
+            // Choose which ghost of that color to move
             // Move
             // Check who wins or nothing
 

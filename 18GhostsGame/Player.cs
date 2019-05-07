@@ -6,89 +6,36 @@ namespace _18GhostsGame
 {
     class Player
     {
-        /* Variable ghosts
-         Red Ghosts = ghosts[0,~]; 
-         Blue Ghosts = ghosts[2,~];
-         Yellow Ghosts = ghosts[1,~];
-        */
+        private Ghosts ghosts;
 
-        // ####### HEY THIS IS YOUR CAPTAIN SPEAKING #######
-        // Tenta tornar a variavel ghosts numa propriedade antes de começares
+        private byte playerNum;
 
-        private byte[,] ghosts;
-        private string playerNum;
+        public byte[,] EnemyGhosts { set; get; }
 
         // Constructor
         public Player(byte playerNum)
         {
-            ghosts = new byte[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
-            this.playerNum = playerNum == 1 ? "Player 1" : "Player 2";
+            ghosts = new Ghosts();
+            this.playerNum = playerNum == 1 ? (byte)(1) : (byte)(2);
+            EnemyGhosts =
+            new byte[3, 3] { { 0, 2, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
         }
 
-        public void Move()
+        public void ResetGhosts()
         {
-
+            ghosts.ResetGhosts();
         }
 
-        public void Attack()
+        public void Action()
         {
-
+            ghosts.Move(EnemyGhosts);
         }
 
-        // Does what it says
-        public void SetGhostPosToZero()
-        {
-            ghosts = new byte[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
-        }
 
-        public string GetPlayerNum() => playerNum;
+        public byte GetPlayerNum() => playerNum;
 
-        public byte[,] GetGhosts() => ghosts;
-        public byte[] GetGhosts(string wichGhosts)
-        {
-            byte[] toReturn = new byte[3];
-            byte[,] toReturnAll = new byte[3, 3];
+        public byte[,] GetGhosts() => ghosts.AllGhosts;
 
-            switch (wichGhosts)
-            {
-                case "red":
-                    toReturn =
-                        new byte[3] { ghosts[0, 0], ghosts[0, 1], ghosts[0, 2] };
-                    break;
 
-                case "blue":
-                    toReturn =
-                        new byte[3] { ghosts[1, 0], ghosts[1, 1], ghosts[1, 2] };
-                    break;
-
-                case "yellow":
-                    toReturn =
-                        new byte[3] { ghosts[2, 0], ghosts[2, 1], ghosts[2, 2] };
-                    break;
-
-                case "all":
-                    // Change text color
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    // Error Message
-                    Console.WriteLine($"\nERROR\n " +
-                        $"Please use the Overload of GetGhosts() to get " +
-                        $"all the ghosts at once.\n");
-                    // Reset text color back to white
-                    Console.ResetColor();
-                    break;
-
-                default:
-                    // Change text color
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    // Error Message
-                    Console.WriteLine($"\nERROR\n " +
-                        $"{wichGhosts} ghosts Doesn't exist.\n");
-                    // Reset text color back to white
-                    Console.ResetColor();
-                    break;
-            }
-
-            return toReturn;
-        }
     }
 }
