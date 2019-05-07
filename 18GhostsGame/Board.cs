@@ -54,26 +54,25 @@ namespace _18GhostsGame
 
                 // Print vertical lines
                 BoardRenderer.PrintVerticalLines();
-                Renderer.PrintVerticalLines();
 
                 // Printing middle lines
                 for (byte j = 0; j < 31; j++)
                 {
                     // Not a column space (Middle Spaces)
-                    if (!Checker.CheckInBoard("column", line, j) &&
-                        Checker.CheckInBoard("middle", line, j))
+                    if (!BoardChecker.CheckInBoard("column", line, j) &&
+                        BoardChecker.CheckInBoard("middle", line, j))
                         // Red Portal place
-                        if (Checker.CheckInBoard("red", line, j))
+                        if (BoardChecker.CheckInBoard("red", line, j))
                         {
-                            Renderer.SetConsoleColor('R');
-                            Renderer.PrintPortalSymbol(portal.RedPortalState);
+                            BoardRenderer.SetConsoleColor('R');
+                            BoardRenderer.PrintPortalSymbol(portal.RedPortalState);
                             j++;
                         }
                         // Yellow Portal place
-                        else if (Checker.CheckInBoard("yellow", line, j))
+                        else if (BoardChecker.CheckInBoard("yellow", line, j))
                         {
-                            Renderer.SetConsoleColor('Y');
-                            Renderer.PrintPortalSymbol
+                            BoardRenderer.SetConsoleColor('Y');
+                            BoardRenderer.PrintPortalSymbol
                                 (portal.YellowPortalState);
                             j++;
                         }
