@@ -24,7 +24,7 @@ namespace _18GhostsGame
 
         public Board()
         {
-            BoardRenderer.SetConsoleEncoding();            
+            BoardRenderer.SetConsoleEncoding();
 
             // Getting the player symbols (ghost symbols from each player)
             ghostSymsP1 = new Symbols[3]
@@ -54,26 +54,26 @@ namespace _18GhostsGame
 
                 // Print vertical lines
                 BoardRenderer.PrintVerticalLines();
+                Renderer.PrintVerticalLines();
 
                 // Printing middle lines
                 for (byte j = 0; j < 31; j++)
                 {
                     // Not a column space (Middle Spaces)
-                    if (!BoardChecker.CheckInBoard("column", line, j) &&
-                        BoardChecker.CheckInBoard("middle", line, j))
+                    if (!Checker.CheckInBoard("column", line, j) &&
+                        Checker.CheckInBoard("middle", line, j))
                         // Red Portal place
-                        if (BoardChecker.CheckInBoard("red", line, j))
+                        if (Checker.CheckInBoard("red", line, j))
                         {
-                            BoardRenderer.SetConsoleColor('R');
-                            BoardRenderer.PrintPortalSymbol
-                                (portal.RedPortalState);
+                            Renderer.SetConsoleColor('R');
+                            Renderer.PrintPortalSymbol(portal.RedPortalState);
                             j++;
                         }
                         // Yellow Portal place
-                        else if (BoardChecker.CheckInBoard("yellow", line, j))
+                        else if (Checker.CheckInBoard("yellow", line, j))
                         {
-                            BoardRenderer.SetConsoleColor('Y');
-                            BoardRenderer.PrintPortalSymbol
+                            Renderer.SetConsoleColor('Y');
+                            Renderer.PrintPortalSymbol
                                 (portal.YellowPortalState);
                             j++;
                         }
