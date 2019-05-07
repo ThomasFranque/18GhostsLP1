@@ -151,20 +151,28 @@ namespace _18GhostsGame
                 (direction, ghosts[ghostToMove[0], ghostToMove[1]], 
                 enemyGhosts);
 
-            Console.WriteLine(enemyTarget[0] + " - " + enemyTarget[1] + "  |  " + ghostToMove[0] + " - " + ghostToMove[1]);
-
             if (enemyTarget[0] == 4)
                 ChangeGhostPos
                     (ref ghosts[ghostToMove[0], ghostToMove[1]], direction);
             else
             {
-                Console.WriteLine("Conflict: " + ghostToMove + "  |  " + enemyTarget);
-
                 // Check if color between ghosts are not equal to run conflict
+                // KILLING GHOSTS OCCURS HERE (THE ONLY METHOD THAT CONTROLLS 
+                //GHOSTS BESIDES THE PLAYER HIMSELF)
 
                 if (ghostToMove[0] != enemyTarget[0])
-                    if (interactions.Conflict(ghostToMove, enemyTarget))
-                        Console.WriteLine("Im here");
+                    if (!interactions.Conflict(ghostToMove, enemyTarget))
+                        KillGhost(ref ghosts[ghostToMove[0], ghostToMove[1]]);
+                    else
+                    {
+                        KillGhost
+                            (ref enemyGhosts[enemyTarget[0], enemyTarget[1]]);
+                        ChangeGhostPos
+                            (ref ghosts[ghostToMove[0], ghostToMove[1]], 
+                            direction);
+
+                    }
+
 
             }
         }
@@ -193,340 +201,10 @@ namespace _18GhostsGame
                     break;
             }
         }
+
+        private static void KillGhost(ref byte targetGhost)
+        {
+            targetGhost = 0;
+        }
     }
 }
-
-// #### OLD MOVEMENT REMOVE WHEN NOT NECESSARY ANYMORE ####
-//Check the color, letter (ghost) and direction
-/*
-switch (ghostColor)
-{
-    case "red":
-        switch (whichGhost)
-        {
-            case "a":
-                switch (direction)
-                {
-                    case 'u':
-
-                        //Check it's position,
-                        //so it doesn´t move to where it shouldn't
-
-                        if (ghosts[0, 0] > 5)
-                        {
-                            //Move the ghost
-                            ghosts[0, 0] -= 5;
-                        }
-                        break;
-                    case 'd':
-                        if (ghosts[0, 0] < 21)
-                        {
-                            ghosts[0, 0] += 5;
-                        }
-                        break;
-                    case 'l':
-                        if ((ghosts[0, 0] != 1) && (ghosts[0, 0] != 6) &&
-                           (ghosts[0, 0] != 11) && (ghosts[0, 0] != 16) &&
-                           (ghosts[0, 0] != 21))
-                        {
-                            ghosts[0, 0] -= 1;
-                        }
-                        break;
-                    case 'r':
-                        if ((ghosts[0, 0] != 5) && (ghosts[0, 0] != 10) &&
-                        (ghosts[0, 0] != 15) && (ghosts[0, 0] != 20) &&
-                        (ghosts[0, 0] != 25))
-                        {
-                            ghosts[0, 0] += 1;
-                        }
-                        break;
-                }
-                break;
-
-            case "b":
-                switch (direction)
-                {
-                    case 'u':
-                        if (ghosts[0, 0] > 5)
-                        {
-                            ghosts[0, 0] -= 5;
-                        }
-                        break;
-                    case 'd':
-                        if (ghosts[0, 0] < 21)
-                        {
-                            ghosts[0, 0] += 5;
-                        }
-                        break;
-                    case 'l':
-                        if ((ghosts[0, 0] != 1) && (ghosts[0, 0] != 6) &&
-                           (ghosts[0, 0] != 11) && (ghosts[0, 0] != 16) &&
-                           (ghosts[0, 0] != 21))
-                        {
-                            ghosts[0, 0] -= 1;
-                        }
-                        break;
-                    case 'r':
-                        if ((ghosts[0, 0] != 5) && (ghosts[0, 0] != 10) &&
-                        (ghosts[0, 0] != 15) && (ghosts[0, 0] != 20) &&
-                        (ghosts[0, 0] != 25))
-                        {
-                            ghosts[0, 0] += 1;
-                        }
-                        break;
-                }
-                break;
-
-            case "c":
-                switch (direction)
-                {
-                    case 'u':
-                        if (ghosts[0, 0] > 5)
-                        {
-                            ghosts[0, 0] -= 5;
-                        }
-                        break;
-                    case 'd':
-                        if (ghosts[0, 0] < 21)
-                        {
-                            ghosts[0, 0] += 5;
-                        }
-                        break;
-                    case 'l':
-                        if ((ghosts[0, 0] != 1) && (ghosts[0, 0] != 6) &&
-                           (ghosts[0, 0] != 11) && (ghosts[0, 0] != 16) &&
-                           (ghosts[0, 0] != 21))
-                        {
-                            ghosts[0, 0] -= 1;
-                        }
-                        break;
-                    case 'r':
-                        if ((ghosts[0, 0] != 5) && (ghosts[0, 0] != 10) &&
-                        (ghosts[0, 0] != 15) && (ghosts[0, 0] != 20) &&
-                        (ghosts[0, 0] != 25))
-                        {
-                            ghosts[0, 0] += 1;
-                        }
-                        break;
-                }
-                break;
-        }
-        break;
-    case "blue":
-        switch (whichGhost)
-        {
-            case "a":
-                switch (direction)
-                {
-                    case 'u':
-                        if (ghosts[1, 0] > 5)
-                        {
-                            ghosts[1, 0] -= 5;
-                        }
-                        break;
-                    case "down":
-                        if (ghosts[1, 0] < 21)
-                        {
-                            ghosts[1, 0] += 5;
-                        }
-                        break;
-                    case "left":
-                        if ((ghosts[1, 0] != 1) && (ghosts[1, 0] != 6) &&
-                           (ghosts[1, 0] != 11) && (ghosts[1, 0] != 16) &&
-                           (ghosts[1, 0] != 21))
-                        {
-                            ghosts[1, 0] -= 1;
-                        }
-                        break;
-                    case "right":
-                        if ((ghosts[1, 0] != 5) && (ghosts[1, 0] != 10) &&
-                        (ghosts[1, 0] != 15) && (ghosts[1, 0] != 20) &&
-                        (ghosts[1, 0] != 25))
-                        {
-                            ghosts[1, 0] += 1;
-                        }
-                        break;
-                }
-                break;
-
-            case "b":
-                switch (direction)
-                {
-                    case "up":
-                        if (ghosts[1, 0] > 5)
-                        {
-                            ghosts[1, 0] -= 5;
-                        }
-                        break;
-                    case "down":
-                        if (ghosts[1, 0] < 21)
-                        {
-                            ghosts[1, 0] += 5;
-                        }
-                        break;
-                    case "left":
-                        if ((ghosts[1, 0] != 1) && (ghosts[1, 0] != 6) &&
-                           (ghosts[1, 0] != 11) && (ghosts[1, 0] != 16) &&
-                           (ghosts[1, 0] != 21))
-                        {
-                            ghosts[1, 0] -= 1;
-                        }
-                        break;
-                    case "right":
-                        if ((ghosts[1, 0] != 5) && (ghosts[1, 0] != 10) &&
-                        (ghosts[1, 0] != 15) && (ghosts[1, 0] != 20) &&
-                        (ghosts[1, 0] != 25))
-                        {
-                            ghosts[1, 0] += 1;
-                        }
-                        break;
-                }
-                break;
-
-            case "c":
-                switch (direction)
-                {
-                    case "up":
-                        if (ghosts[1, 0] > 5)
-                        {
-                            ghosts[1, 0] -= 5;
-                        }
-                        break;
-                    case "down":
-                        if (ghosts[1, 0] < 21)
-                        {
-                            ghosts[1, 0] += 5;
-                        }
-                        break;
-                    case "left":
-                        if ((ghosts[1, 0] != 1) && (ghosts[1, 0] != 6) &&
-                           (ghosts[1, 0] != 11) && (ghosts[1, 0] != 16) &&
-                           (ghosts[1, 0] != 21))
-                        {
-                            ghosts[1, 0] -= 1;
-                        }
-                        break;
-                    case "right":
-                        if ((ghosts[1, 0] != 5) && (ghosts[1, 0] != 10) &&
-                        (ghosts[1, 0] != 15) && (ghosts[1, 0] != 20) &&
-                        (ghosts[1, 0] != 25))
-                        {
-                            ghosts[1, 0] += 1;
-                        }
-                        break;
-                }
-                break;
-        }
-        break;
-
-
-    case "yellow":
-        switch (whichGhost)
-        {
-            case "a":
-                switch (direction)
-                {
-                    case "up":
-                        if (ghosts[2, 0] > 5)
-                        {
-                            ghosts[2, 0] -= 5;
-                        }
-                        break;
-                    case "down":
-                        if (ghosts[2, 0] < 21)
-                        {
-                            ghosts[2, 0] += 5;
-                        }
-                        break;
-                    case "left":
-                        if ((ghosts[2, 0] != 1) && (ghosts[2, 0] != 6) &&
-                           (ghosts[2, 0] != 11) && (ghosts[2, 0] != 16) &&
-                           (ghosts[2, 0] != 21))
-                        {
-                            ghosts[2, 0] -= 1;
-                        }
-                        break;
-                    case "right":
-                        if ((ghosts[2, 0] != 5) && (ghosts[2, 0] != 10) &&
-                        (ghosts[2, 0] != 15) && (ghosts[2, 0] != 20) &&
-                        (ghosts[2, 0] != 25))
-                        {
-                            ghosts[2, 0] += 1;
-                        }
-                        break;
-                }
-                break;
-
-            case "b":
-                switch (direction)
-                {
-                    case "up":
-                        if (ghosts[2, 0] > 5)
-                        {
-                            ghosts[2, 0] -= 5;
-                        }
-                        break;
-                    case "down":
-                        if (ghosts[2, 0] < 21)
-                        {
-                            ghosts[2, 0] += 5;
-                        }
-                        break;
-                    case "left":
-                        if ((ghosts[2, 0] != 1) && (ghosts[2, 0] != 6) &&
-                           (ghosts[2, 0] != 11) && (ghosts[2, 0] != 16) &&
-                           (ghosts[2, 0] != 21))
-                        {
-                            ghosts[2, 0] -= 1;
-                        }
-                        break;
-                    case "right":
-                        if ((ghosts[2, 0] != 5) && (ghosts[2, 0] != 10) &&
-                        (ghosts[2, 0] != 15) && (ghosts[2, 0] != 20) &&
-                        (ghosts[2, 0] != 25))
-                        {
-                            ghosts[2, 0] += 1;
-                        }
-                        break;
-                }
-                break;
-
-            case "c":
-                switch (direction)
-                {
-                    case "up":
-                        if (ghosts[2, 0] > 5)
-                        {
-                            ghosts[2, 0] -= 5;
-                        }
-                        break;
-                    case "down":
-                        if (ghosts[2, 0] < 21)
-                        {
-                            ghosts[2, 0] += 5;
-                        }
-                        break;
-                    case "left":
-                        if ((ghosts[2, 0] != 1) && (ghosts[2, 0] != 6) &&
-                           (ghosts[2, 0] != 11) && (ghosts[2, 0] != 16) &&
-                           (ghosts[2, 0] != 21))
-                        {
-                            ghosts[2, 0] -= 1;
-                        }
-                        break;
-                    case "right":
-                        if ((ghosts[2, 0] != 5) && (ghosts[2, 0] != 10) &&
-                        (ghosts[2, 0] != 15) && (ghosts[2, 0] != 20) &&
-                        (ghosts[2, 0] != 25))
-                        {
-                            ghosts[2, 0] += 1;
-                        }
-
-                        break;
-                }
-                break;
-        }
-        break;
-
-}
-*/
