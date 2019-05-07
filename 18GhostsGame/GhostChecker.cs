@@ -6,6 +6,8 @@ namespace _18GhostsGame
 {
     class GhostChecker
     {
+        //ALTERAR STATICS PARA NAO STATIC
+
         // This method is for returning the ghost in the target location
         // (target is for the single ghost and allGhosts is for 
         // where it is contained)
@@ -16,9 +18,8 @@ namespace _18GhostsGame
         public static byte[] CheckAdjacentPos
             (char direction, byte targetGhost, byte[,] enemyGhosts)
         {
-            // occupied = Ghost There
             byte[] enemyGhost = new byte[2] { 4, 0 };
-            byte targetPos;
+            byte targetPos;            
             targetPos = DesiredPosition(direction, targetGhost);
 
             if (CheckAllForEqual(targetPos, enemyGhosts))
@@ -26,7 +27,6 @@ namespace _18GhostsGame
 
             return enemyGhost;
         }
-
         public static byte[] FindGhost(byte targetGhost, byte[,] allGhosts)
         {
             // enemyGhost
@@ -48,36 +48,35 @@ namespace _18GhostsGame
                         case 1:
                         case 4:
                         case 7:
-                            finalGhost[0] = 1;
+                            finalGhost[0] = 0;
                             break;
                         // Ghost 2
                         case 2:
                         case 5:
                         case 8:
-                            finalGhost[0] = 2;
+                            finalGhost[0] = 1;
                             break;
                         // Ghost 3
                         case 3:
                         case 6:
                         case 9:
-                            finalGhost[0] = 3;
+                            finalGhost[0] = 2;
                             break;
                     }
             }
             // Check corresponding ghost color
             // Red ghosts
             if (counter <= 3)
-                finalGhost[1] = 1;
+                finalGhost[1] = 0;
             // Blue ghosts
             else if (counter <= 6)
-                finalGhost[1] = 2;
+                finalGhost[1] = 1;
             // Yellow ghosts
             else
-                finalGhost[1] = 3;
+                finalGhost[1] = 2;
 
             return finalGhost;
         }
-
         private static bool CheckAllForEqual(byte targetPos, byte[,] allGhosts)
         {
             bool isEqual = false;
@@ -93,6 +92,7 @@ namespace _18GhostsGame
             return isEqual;
         }
 
+        // Where it will end up
         private static byte DesiredPosition(char direction, byte targetGhost)
         {
             byte targetPos = 0;

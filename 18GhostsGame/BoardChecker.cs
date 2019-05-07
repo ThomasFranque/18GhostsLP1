@@ -60,7 +60,56 @@ namespace _18GhostsGame
             return isHere;
         }
 
-        // ######PLAYER######
+        public static byte[] FindGhost(byte targetGhost, byte[,] allGhosts)
+        {
+            // enemyGhost
+            byte[] finalGhost = new byte[2] { 0, 0 };
+            byte counter = 0;
+
+            foreach (byte ghost in allGhosts)
+            {
+                if (finalGhost[0] == 0)
+                    counter++;
+                else
+                    break;
+
+                // Check for the same target ghost number on player ghosts
+                if (ghost == targetGhost)
+                    switch (counter)
+                    {
+                        // Ghost 1
+                        case 1:
+                        case 4:
+                        case 7:
+                            finalGhost[0] = 1;
+                            break;
+                        // Ghost 2
+                        case 2:
+                        case 5:
+                        case 8:
+                            finalGhost[0] = 2;
+                            break;
+                        // Ghost 3
+                        case 3:
+                        case 6:
+                        case 9:
+                            finalGhost[0] = 3;
+                            break;
+                    }
+            }
+            // Check corresponding ghost color
+            // Red ghosts
+            if (counter <= 3)
+                finalGhost[1] = 1;
+            // Blue ghosts
+            else if (counter <= 6)
+                finalGhost[1] = 2;
+            // Yellow ghosts
+            else
+                finalGhost[1] = 3;
+
+            return finalGhost;
+        }
 
     }
 }

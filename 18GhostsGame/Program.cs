@@ -10,19 +10,22 @@ namespace _18GhostsGame
             Player player1 = new Player(1);
             Player player2 = new Player(2);
 
+            player2.ResetGhosts();
+
             board.Draw(player1.GetGhosts(), player2.GetGhosts());
 
+            // TEMP GAMELOOP
             while (true)
             {
+                player1.EnemyGhosts = player2.GetGhosts();
+
+                player2.EnemyGhosts = player1.GetGhosts();
+
                 player1.Action();
 
                 //player1.SetGhostPosToZero();
                 board.GhostDead("yellow");
                 board.Draw(player1.GetGhosts(), player2.GetGhosts());
-
-                player1.EnemyGhosts = player2.GetGhosts();
-
-                player2.EnemyGhosts = player1.GetGhosts();
 
             }        
 

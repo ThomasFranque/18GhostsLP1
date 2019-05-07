@@ -6,6 +6,7 @@ namespace _18GhostsGame
 {
     class Ghosts
     {
+        GhostInteractions interactions = new GhostInteractions();
 
         /* Variable ghosts
          Red Ghosts = ghosts[0,~]; 
@@ -13,6 +14,8 @@ namespace _18GhostsGame
          Yellow Ghosts = ghosts[1,~];
         */
         private byte[,] ghosts;
+
+        private byte[] enemyTarget;
 
         public byte[,] AllGhosts
         {
@@ -32,12 +35,14 @@ namespace _18GhostsGame
         // Constructor
         public Ghosts()
         {
-            ghosts = new byte[3, 3] { { 0, 2, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+            ghosts = new byte[3, 3] { { 0, 1, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+            enemyTarget = new byte[2] { 4, 0 };
+            interactions = new GhostInteractions();
         }
 
         public void ResetGhosts()
         {
-            ghosts = new byte[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+            ghosts = new byte[3, 3] { { 0, 0, 0 }, { 0, 6, 0 }, { 0, 0, 0 } };
         }
 
         public void Move(byte[,] enemyGhosts)
@@ -142,12 +147,26 @@ namespace _18GhostsGame
                     direction = 'r';
                     break;
             }
+            enemyTarget = GhostChecker.CheckAdjacentPos
+                (direction, ghosts[ghostToMove[0], ghostToMove[1]], 
+                enemyGhosts);
 
-            if (GhostChecker.CheckAdjacentPos(direction, ghosts[ghostToMove[0], ghostToMove[1]], enemyGhosts)[0] == 4)
-                ChangeGhostPos(ref ghosts[ghostToMove[0], ghostToMove[1]], direction);
+            Console.WriteLine(enemyTarget[0] + " - " + enemyTarget[1] + "  |  " + ghostToMove[0] + " - " + ghostToMove[1]);
+
+            if (enemyTarget[0] == 4)
+                ChangeGhostPos
+                    (ref ghosts[ghostToMove[0], ghostToMove[1]], direction);
             else
-                Console.WriteLine("Conflict");
+            {
+                Console.WriteLine("Conflict: " + ghostToMove + "  |  " + enemyTarget);
 
+                // Check if color between ghosts are not equal to run conflict
+
+                if (ghostToMove[0] != enemyTarget[0])
+                    if (interactions.Conflict(ghostToMove, enemyTarget))
+                        Console.WriteLine("Im here");
+
+            }
         }
 
         private void ChangeGhostPos(ref byte targetGhost, char direction)

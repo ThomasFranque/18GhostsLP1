@@ -20,7 +20,8 @@ namespace _18GhostsGame
         {
             string option;
 
-            option = Inputs.PlayerInput("What do you want to do? \nMove or Atack");
+            option = Inputs.PlayerInput
+            ("What do you want to do? \nMove or Atack");
 
             switch (option)
             {

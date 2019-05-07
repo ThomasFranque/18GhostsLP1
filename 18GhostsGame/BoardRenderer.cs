@@ -21,7 +21,7 @@ namespace _18GhostsGame
             byte[] foundGhost = new byte[2] { 0, 0 };
             Symbols ghostSymbol = Symbols.blank;
 
-            foundGhost = GhostChecker.FindGhost(targetGhost, allGhosts);
+            foundGhost = BoardChecker.FindGhost(targetGhost, allGhosts);
 
             // Check for the same target ghost number on player ghosts
             switch (foundGhost[0])
@@ -113,7 +113,7 @@ namespace _18GhostsGame
             Console.Write("|      |\n" +
                     " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ ");
 
-            // Debugging
+            // Debugging ######################################################
             Console.WriteLine("\nGhost1:a\nGhost2:b\nGhost3:c\nMirror:¤ \nɔ q ɐ");
         }
 

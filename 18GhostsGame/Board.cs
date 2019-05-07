@@ -65,7 +65,8 @@ namespace _18GhostsGame
                         if (BoardChecker.CheckInBoard("red", line, j))
                         {
                             BoardRenderer.SetConsoleColor('R');
-                            BoardRenderer.PrintPortalSymbol(portal.RedPortalState);
+                            BoardRenderer.PrintPortalSymbol
+                                (portal.RedPortalState);
                             j++;
                         }
                         // Yellow Portal place
@@ -80,7 +81,8 @@ namespace _18GhostsGame
                         else if (BoardChecker.CheckInBoard("blue", line, j))
                         {
                             BoardRenderer.SetConsoleColor('C');
-                            BoardRenderer.PrintPortalSymbol(portal.BluePortalState);
+                            BoardRenderer.PrintPortalSymbol
+                                (portal.BluePortalState);
                             j++;
                         }
 
@@ -93,7 +95,8 @@ namespace _18GhostsGame
                             {
                                 ghostPos =
                                     Convertions.NormalizePositions(ghost);
-                                if (BoardChecker.CheckInBoard(ghostPos, line, j))
+                                if (BoardChecker.CheckInBoard
+                                    (ghostPos, line, j))
                                 {
                                     BoardRenderer.PrintSymbol
                                         (ghostSymsP1, ghost, p1Ghosts);
@@ -108,7 +111,8 @@ namespace _18GhostsGame
 
                                 ghostPos =
                                     Convertions.NormalizePositions(ghost);
-                                if (BoardChecker.CheckInBoard(ghostPos, line, j))
+                                if (BoardChecker.CheckInBoard
+                                    (ghostPos, line, j))
                                 {
                                     BoardRenderer.PrintSymbol
                                         (ghostSymsP2, ghost, p2Ghosts);
@@ -150,7 +154,8 @@ namespace _18GhostsGame
                 BoardRenderer.PrintBottomLines();
             }
             // Print the Dungeon
-            BoardRenderer.DrawDungeon(p1Ghosts, ghostSymsP1, p2Ghosts, ghostSymsP2);
+            BoardRenderer.DrawDungeon
+                (p1Ghosts, ghostSymsP1, p2Ghosts, ghostSymsP2);
         }        
 
         public void GhostDead(string color)

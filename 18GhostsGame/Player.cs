@@ -10,13 +10,20 @@ namespace _18GhostsGame
 
         private byte playerNum;
 
-        public byte[,] EnemyGhosts { get; set; } = new byte[3, 3] { { 0, 2, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+        public byte[,] EnemyGhosts { set; get; }
 
         // Constructor
         public Player(byte playerNum)
         {
             ghosts = new Ghosts();
             this.playerNum = playerNum == 1 ? (byte)(1) : (byte)(2);
+            EnemyGhosts =
+            new byte[3, 3] { { 0, 2, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+        }
+
+        public void ResetGhosts()
+        {
+            ghosts.ResetGhosts();
         }
 
         public void Action()
