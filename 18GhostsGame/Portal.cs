@@ -6,15 +6,15 @@ namespace _18GhostsGame
 {
     static class Portal
     {
-        public static string RedPortalState { get; private set; }
+        public static string RedPortalState     { get; private set; }
 
-        public static string BluePortalState { get; private set; }
+        public static string BluePortalState    { get; private set; }
 
-        public static string YellowPortalState { get; private set; }
+        public static string YellowPortalState  { get; private set; }
 
         static Portal()
         {
-            // Portals default positions
+            // Initializing Portals with default positions
             RedPortalState =    "up";
             BluePortalState =   "down";
             YellowPortalState = "right";
@@ -26,10 +26,10 @@ namespace _18GhostsGame
             switch (color)
             {
                 case 0:
-                    RedPortalState = NewRotation(RedPortalState);
+                    RedPortalState =    NewRotation(RedPortalState);
                     break;
                 case 1:
-                    BluePortalState = NewRotation(BluePortalState);
+                    BluePortalState =   NewRotation(BluePortalState);
                     break;
                 case 2:
                     YellowPortalState = NewRotation(YellowPortalState);
@@ -60,6 +60,12 @@ namespace _18GhostsGame
                     break;
             }
             return newPosition;
+        }
+
+        private static void RedMessage()
+        {
+            // ESPERAR PELA RESPOSTA DO STOR
+            // SE N FOR COMO WRITELINE, DEFINIR LÁ AS MSGS
         }
 
         

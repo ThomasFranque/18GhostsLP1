@@ -15,11 +15,11 @@ namespace _18GhostsGame
         // 4,0 there is no ghost there
         // finalGhost[0] = Which ghost: first, second or third
         // finalGhost[1] = Color of the ghost: red, blue, yellow
-        public static byte[] CheckAdjacentPos
+        public byte[] CheckAdjacentPos
             (char direction, byte targetGhost, byte[,] enemyGhosts)
         {
             byte[] enemyGhost = new byte[2] { 4, 0 };
-            byte targetPos;            
+            byte targetPos;
             targetPos = DesiredPosition(direction, targetGhost);
 
             if (CheckAllForEqual(targetPos, enemyGhosts))
@@ -27,7 +27,7 @@ namespace _18GhostsGame
 
             return enemyGhost;
         }
-        public static byte[] FindGhost(byte targetGhost, byte[,] allGhosts)
+        public byte[] FindGhost(byte targetGhost, byte[,] allGhosts)
         {
             // enemyGhost
             byte[] finalGhost = new byte[2] { 0, 0 };
@@ -77,7 +77,9 @@ namespace _18GhostsGame
 
             return finalGhost;
         }
-        private static bool CheckAllForEqual(byte targetPos, byte[,] allGhosts)
+
+        // Used for checking ghosts
+        private bool CheckAllForEqual(byte targetPos, byte[,] allGhosts)
         {
             bool isEqual = false;
 
@@ -92,8 +94,28 @@ namespace _18GhostsGame
             return isEqual;
         }
 
+        // Used for checking obstacles (Portals)
+        private bool CheckAllForEqual(byte pos, byte[] obstacles)
+        {
+            bool obstacle = false;
+
+            // Is in dungeon?
+            if (pos == 0)
+                obstacle = true;
+            // If not, check given obstacles
+            else
+            foreach (byte position in obstacles)
+                if (position == pos)
+                {
+                    obstacle = true;
+                    break;
+                }
+
+            return obstacle;
+        }
+
         // Where it will end up
-        public static byte DesiredPosition(char direction, byte targetGhost)
+        public byte DesiredPosition(char direction, byte targetGhost)
         {
             byte targetPos = 0;
 
@@ -118,6 +140,41 @@ namespace _18GhostsGame
             }
 
             return targetPos;
+        }
+
+        public bool NoObstacle(char direction, byte pos)
+        {
+            bool canMove = false;
+
+            switch (direction)
+            {
+                // Moving Up
+                case 'u':                    
+                    if (pos > 5 && 
+                        !CheckAllForEqual(pos, new byte[] { 8, 20 }))
+                        canMove = true;
+                    break;
+                // Moving Down
+                case 'd':
+                    if (pos <= 21 && 
+                        !CheckAllForEqual(pos, new byte[] { 10, 18 }))
+                        canMove = true;
+                    break;
+                // Moving Left
+                case 'l':
+                    if (!CheckAllForEqual(pos, 
+                        new byte[] { 1, 4, 6, 11, 16, 21, 24 }))
+                        canMove = true;
+                    break;
+                // Moving Right
+                case 'r':
+                    if (!CheckAllForEqual(pos,
+                        new byte[] { 2, 5, 10, 14, 15, 20, 22, 25}))
+                        canMove = true;
+                    break;
+            }
+
+            return canMove;
         }
 
     }

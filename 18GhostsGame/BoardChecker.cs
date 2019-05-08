@@ -43,7 +43,6 @@ namespace _18GhostsGame
                     if (j % 3 == 0)
                         isHere = true;
                     break;
-
             }
 
             return isHere;

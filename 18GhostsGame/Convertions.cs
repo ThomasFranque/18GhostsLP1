@@ -28,10 +28,6 @@ namespace _18GhostsGame
         // Will return the character number in a line
         private static byte FindCharacterInLine(byte ghost)
         {
-            // ****************************
-            // BETTER SOLUTION IN THE WORKS
-            // ****************************
-
             byte finalCharacter = 0;
 
             switch (ghost)
@@ -78,60 +74,8 @@ namespace _18GhostsGame
                 case 25:
                     finalCharacter = 27;
                     break;
-
-                default:
-                    BoardRenderer.Error("FindCharacterInLine() in Board.cs",
-                        "Given Ghost position doesn't exist");
-                    break;
-
             }
             return finalCharacter;
-
-            /* 
-             * Will be erased when a better solution is found
-             * 
-            //bool keepRunning = true;
-            if (keepRunning)
-                for (byte k = 1; k <= 21; k += 5)
-                    if (ghost == k)
-                    {
-                        finalCharacter = 3;
-                        k = 22;
-                        keepRunning = false;
-                    }
-            if (keepRunning)
-                for (byte k = 2; k <= 22; k += 5)
-                    if (ghost == k)
-                    {
-                        finalCharacter = 9;
-                        k = 23;
-                        keepRunning = false;
-                    }
-            if (keepRunning)
-                for (byte k = 3; k <= 23; k += 5)
-                    if (ghost == k)
-                    {
-                        finalCharacter = 15;
-                        k = 24;
-                        keepRunning = false;
-                    }
-            if (keepRunning)
-                for (byte k = 4; k <= 24; k += 5)
-                    if (ghost == k)
-                    {
-                        finalCharacter = 21;
-                        k = 25;
-                        keepRunning = false;
-                    }
-            if (keepRunning)
-                for (byte k = 5; k <= 25; k += 5)
-                    if (ghost == k)
-                    {
-                        finalCharacter = 27;
-                        k = 26;
-                    }
-            return finalCharacter;
-            */
         }
     }
 }
