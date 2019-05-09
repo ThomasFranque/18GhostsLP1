@@ -1,45 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace _18GhostsGame
 {
+    /// <summary>
+    /// Determines player intentions and ghosts
+    /// </summary>
     class Player
     {
+        // Variables
         private Ghosts ghosts;
-
-        private byte playerNum;
-
         public byte[,] EnemyGhosts { set; get; }
 
-        // Constructor
-        public Player(byte playerNum)
+        /// <summary>
+        /// Constructor Player creates player ghosts and sets to default 
+        /// values
+        /// </summary>
+        public Player()
         {
             ghosts = new Ghosts();
-
-            this.playerNum = playerNum == 1 ? (byte)(1) : (byte)(2);
             EnemyGhosts =
-            new byte[3, 3] { { 0, 2, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+            new byte[3, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
         }
 
-        public void ResetGhosts()
-        {
-            ghosts.ResetGhosts();
-        }
-
+        /// <summary>
+        /// Determine what the player wants to do
+        /// </summary>
         public void Action()
         {
+            // Temporary variables
             ConsoleKeyInfo input;
             bool chosen = false;
 
+            // If not a valid option
             while (!chosen)
             {
+                // Show menu
                 Render.ActionMenu();
-
+                // Read player intention
                 input = Console.ReadKey();
-
+                // Print gap
                 Render.Line();
 
+                // Check option
                 switch (input.Key)
                 {
                     // Player wants to Move
@@ -56,7 +58,6 @@ namespace _18GhostsGame
                         Render.PrintText
                             ("\nLet your opponent choose where!\n");
                         ghosts.Place(EnemyGhosts);
-                        //Render.HelpPlacing();
                         break;
 
                     // Player wants Help
@@ -64,17 +65,27 @@ namespace _18GhostsGame
                     case ConsoleKey.D3:
                         Render.HelpAction();
                         break;
+                    
+                    // Unknown input
+                    default:
+                        Render.PrintText("Please insert a valid option.");
+                        break;
                 }
             }
         }
 
+        /// <summary>
+        /// Force the placing of ghosts
+        /// </summary>
         public void ForcePlace()
         {
             ghosts.Place(EnemyGhosts);
         }
 
-        public byte GetPlayerNum() => playerNum;
-
+        /// <summary>
+        /// Will return the player ghosts
+        /// </summary>
+        /// <returns>All the player ghosts</returns>
         public byte[,] GetGhosts() => ghosts.AllGhosts;
 
 

@@ -1,27 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace _18GhostsGame
+﻿namespace _18GhostsGame
 {
+    /// <summary>
+    /// Controls how many ghosts are necessary to win the game, assigning it
+    /// using command-line arguments
+    /// </summary>
     class GameMode
     {
-        // How many ghosts of the same color need to leave to win
+        // Property holds how many ghosts 
+        // of the same color need to leave to win the game
         public byte ToWin
         { get; private set; }
 
-        // Personalized gamemode
+        /// <summary>
+        /// Will read the console arguments and assign a game mode
+        /// </summary>
+        /// <param name="userArg">
+        /// Command-line arguments for the desired game mode
+        /// </param>
         public GameMode(string[] userArg)
         {
             string gamemode;
+
+            // Checking if arguments were given
+            // Sets to default value if not
             if (userArg.Length < 1)
                 gamemode = " ";
             else
                 gamemode = userArg[0];
 
+            // Read the console argument and assign respective game settings
             switch (gamemode)
             {
-                // Quick gamemode
+                // Quick game mode
                 case "quick":
                 case "Quick":
                 case "q":
@@ -29,7 +39,7 @@ namespace _18GhostsGame
                     ToWin = 1;
                     break;
 
-                // Standard gamemode
+                // Standard game mode
                 case "":
                 case " ":
                 case null:

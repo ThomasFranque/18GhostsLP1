@@ -1,35 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace _18GhostsGame
 {
+    /// <summary>
+    /// Renders all the needed text and symbols
+    /// </summary>
     class Render
     {
         // #########################
-        // ###  General Renders ####
+        // #### General Renders ####
         // #########################
 
-        //
+        /// <summary>
+        /// Sets the console encoding to support unicode
+        /// </summary>
         public static void SetConsoleEncoding()
         {
             // Readying the console text for unicode
             Console.OutputEncoding = Encoding.UTF8;
         }
 
-        // AAAAAAA
-        public static void Error(string location, string message)
-        {
-            // Change text color
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"\nERROR\n " +
-                $"Location: {location}\n " +
-                $"{message}.\n");
-            // Reset text color back to white
-            Console.ResetColor();
-        }
-
-        // AAAAAAA
+        /// <summary>
+        /// Changes console text color
+        /// </summary>
+        /// <param name="color">Desired color number</param>
         public static void SetConsoleColor(char color)
         {
             switch (color)
@@ -62,18 +57,25 @@ namespace _18GhostsGame
 
         }
 
-        // AAAAAAA
+        /// <summary>
+        /// Resets the console text color to white
+        /// </summary>
         public static void ResetConsoleColor()
         {
             Console.ResetColor();
         }
 
+        /// <summary>
+        /// Clears all the previous printed text
+        /// </summary>
         public static void Clear()
         {
             Console.Clear();
         }
 
-        // Just print a new line
+        /// <summary>
+        /// Prints a new line
+        /// </summary>
         public static void Line()
         {
             Console.WriteLine("\n");
@@ -83,56 +85,78 @@ namespace _18GhostsGame
         // ####  Board Renders #####
         // #########################
 
-        // Not for Ghosts
+        /// <summary>
+        /// Is used to print the given symbol from enum Symbols
+        /// </summary>
+        /// <param name="symbol">Desired symbol</param>
         public static void PrintSymbol(Symbols symbol)
         {
             Console.Write(((char)symbol).ToString());
         }
 
 
-        // For Ghosts
+        /// <summary>
+        /// Is used to print the desired ghost symbol with respective color
+        /// </summary>
+        /// <param name="ghostSymbols">Target player symbols</param>
+        /// <param name="targetGhost">Target ghost position</param>
+        /// <param name="allGhosts">Target player ghosts</param>
         public static void PrintSymbol
             (Symbols[] ghostSymbols, byte targetGhost, byte[,] allGhosts)
         {
+            // Temporary variables
+            BoardChecker checker = new BoardChecker();
             byte[] foundGhost = new byte[2] { 0, 0 };
             Symbols ghostSymbol = Symbols.blank;
 
-            foundGhost = BoardChecker.FindGhost(targetGhost, allGhosts);
+            foundGhost = checker.FindGhost(targetGhost, allGhosts);
 
             // Check for the same target ghost number on player ghosts
             switch (foundGhost[0])
             {
+                // Ghost a
                 case 1:
                     ghostSymbol = ghostSymbols[0];
                     break;
+                // Ghost b
                 case 2:
                     ghostSymbol = ghostSymbols[1];
                     break;
+                // Ghost c
                 case 3:
                     ghostSymbol = ghostSymbols[2];
                     break;
             }
+            // Change console text color
             switch (foundGhost[1])
             {
+                // Red
                 case 1:
                     SetConsoleColor('r'); ;
                     break;
+                // Blue
                 case 2:
                     SetConsoleColor('b');
                     break;
+                // Yellow
                 case 3:
                     SetConsoleColor('y');
                     break;
             }
 
-            // Print
+            // Print result and reset color
             PrintSymbol(ghostSymbol);
             ResetConsoleColor();
         }
 
-        // Know which symbol represents up down left and right
+        /// <summary>
+        /// Know wich symbol from Symbols enum 
+        /// represents the given portal position
+        /// </summary>
+        /// <param name="portal">Target Portal</param>
         public static void PrintPortalSymbol(string portal)
         {
+            // Temporary variables
             Symbols symbolToPrint;
             symbolToPrint = Symbols.blank;
 
@@ -151,68 +175,103 @@ namespace _18GhostsGame
                     symbolToPrint = Symbols.portalLeft;
                     break;
             }
+            // Print
             PrintSymbol(symbolToPrint);
         }
 
-        //
+        /// <summary>
+        /// Print dungeon vertical lines
+        /// </summary>
         public static void PrintVerticalLines()
         {
             Console.Write("|     |     |     |     |     |\n");
         }
 
-        //
+        /// <summary>
+        /// Print dungeon horizontal lines
+        /// </summary>
         public static void PrintHorizontalLines()
         {
-            Console.Write(" _____ _____ _____ _____ _____\n");
+            Console.Write("|_____ _____ _____ _____ _____|\n");
         }
 
-        //
+        /// <summary>
+        /// Print dungeon bottom lines 
+        /// </summary>
         public static void PrintBottomLines()
         {
             Console.Write("\n|_____|_____|_____|_____|_____|\n");
         }
 
-        // Drawing the dungeon
+        /// <summary>
+        /// Draws the entire dungeon
+        /// </summary>
+        /// <param name="p1Ghosts">Player 1 ghosts</param>
+        /// <param name="ghostSymsP1">Player 1 Symbols</param>
+        /// <param name="p2Ghosts">Player 2 ghosts</param>
+        /// <param name="ghostSymsP2">Player 2 Symbols</param>
         public static void DrawDungeon
             (byte[,] p1Ghosts, Symbols[] ghostSymsP1,
             byte[,] p2Ghosts, Symbols[] ghostSymsP2)
         {
+            // Print dungeon Top
             Console.Write("|        D U N G E O N        |\n" +
                     "|      ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾      |\n" +
                     "|       P1. .|");
-
+            // Print Player 1 ghosts
             PrintDungeonGhostSymbol(ghostSymsP1, p1Ghosts);
+            // Print dungeon middle
             Console.Write("|      |\n" +
                     "|       P2. .|");
-
+            //Print Player 2 ghosts
             PrintDungeonGhostSymbol(ghostSymsP2, p2Ghosts);
+            // Print dungeon bottom
             Console.Write("|      |\n" +
                     " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ ");
         }
 
-        // For Ghosts in dungeon
+        /// <summary>
+        /// Prints the color conflic chain order
+        /// </summary>
+        public static void ColorConflics()
+        {
+            Render.PrintColoredText("\n _____________________________\n" +
+                    "        Y > R > B > Y \n" +
+                    "     ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n");
+        }
+
+        /// <summary>
+        /// Prints ghosts in dungeon
+        /// </summary>
+        /// <param name="ghostSymbols">Target player ghost symbols</param>
+        /// <param name="allGhosts">Target player ghosts</param>
         private static void PrintDungeonGhostSymbol
             (Symbols[] ghostSymbols, byte[,] allGhosts)
         {
+            // Temporary variables
             byte counter = 0;
             Symbols[] ghostsToPrint = new Symbols[9];
 
             foreach (byte ghost in allGhosts)
             {
                 counter++;
+                // If ghost is in dungeon, store them
                 if (ghost == 0)
                     switch (counter)
                     {
+                        // ghosts a
                         case 1:
                         case 4:
                         case 7:
                             ghostsToPrint[counter - 1] = ghostSymbols[0];
                             break;
+                        // ghosts b
                         case 2:
                         case 5:
                         case 8:
                             ghostsToPrint[counter - 1] = ghostSymbols[1];
                             break;
+                        // ghosts c
                         case 3:
                         case 6:
                         case 9:
@@ -221,9 +280,10 @@ namespace _18GhostsGame
                     }
             }
 
-            // Re-use counter to print 
+            // Re-use counter for color
             counter = 0;
 
+            // Check ghost color using counter
             foreach (Symbols ghost in ghostsToPrint)
             {
                 counter++;
@@ -242,9 +302,15 @@ namespace _18GhostsGame
 
                 Console.Write(((char)ghost).ToString());
             }
-            Console.ResetColor();
+            // Reset color
+            ResetConsoleColor();
         }
 
+        /// <summary>
+        /// Set the given carpet location color
+        /// </summary>
+        /// <param name="line"></param>
+        /// <param name="j"></param>
         public static void SetCarpetColor(byte line, byte j)
         {
             // Red carpets
@@ -267,17 +333,33 @@ namespace _18GhostsGame
                 SetConsoleColor('Y');
         }
 
-        //
-        public static void PrintScoreTable(byte[,] score)
+        /// <summary>
+        /// Will print score table of both players
+        /// </summary>
+        public static void PrintScoreTable()
         {
-            PrintColoredText("Score!\n" +
-                " ________________ \n" +
+            // Print player 1 score
+            Console.Write(" ________________ \n" +
                 "| Player 1:      |\n" +
-                "| R:{} B:{} Y:{} |\n" +
-                "| -------------- |\n" +
+                "| ");
+            PrintColoredText("R:");
+            Console.Write(Portal.ghostsOut[0, 0]);
+            PrintColoredText("  B:");
+            Console.Write(Portal.ghostsOut[0, 1]);
+            PrintColoredText("  Y:");
+            Console.Write(Portal.ghostsOut[0, 2]);
+
+            // Print player 2 score
+            Console.Write("  |\n| -------------- |\n" +
                 "| Player 2:      |\n" +
-                "| R:{} B:{} Y:{} |\n" +
-                " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ \n");
+                "| ");
+            PrintColoredText("R:");
+            Console.Write(Portal.ghostsOut[1, 0]);
+            PrintColoredText("  B:");
+            Console.Write(Portal.ghostsOut[1, 1]);
+            PrintColoredText("  Y:");
+            Console.Write(Portal.ghostsOut[1, 2]);
+            Console.Write("  |____________\n");                
         }
 
 
@@ -285,13 +367,19 @@ namespace _18GhostsGame
         // #### Player Renders #####
         // #########################
 
-        //Print given text
+        /// <summary>
+        /// Print given text with while coloring the colors 
+        /// Red, Blue and Green and setting the text to gray
+        /// </summary>
+        /// <param name="text">Text to print</param>
         public static void PrintColoredText(string text)
         {
+            // Temporary variable
             bool color = false;
+
             foreach (char letter in text)
             {
-                // Check for color
+                // Check for letter color
                 if (letter == 'R')
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -307,7 +395,7 @@ namespace _18GhostsGame
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     color = !color;
                 }
-                // Check for ending
+                // Check for endings
                 if ((letter == ' ' || letter == '>') && color)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -316,17 +404,25 @@ namespace _18GhostsGame
                 if (letter == '?' || letter == '!')
                     color = !color;
 
+                // print
                 Console.Write(letter);
             }
-            Console.ForegroundColor = ConsoleColor.White;
+            // reset color
+            ResetConsoleColor();
         }
 
+        /// <summary>
+        /// Print normal gray text
+        /// </summary>
+        /// <param name="text">Text to print</param>
         public static void PrintText(string text)
         {
+            // Temporary variable
             bool color = false;
+
             foreach (char letter in text)
             {
-                // Check for ending
+                // Check for endings
                 if (color)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -337,9 +433,13 @@ namespace _18GhostsGame
 
                 Console.Write(letter);
             }
-            Console.ForegroundColor = ConsoleColor.White;
+            // Reset color
+            ResetConsoleColor();
         }
 
+        /// <summary>
+        /// Menu shows possible player actions
+        /// </summary>
         public static void ActionMenu()
         {
             //Ask what to do
@@ -349,7 +449,10 @@ namespace _18GhostsGame
                 "Help .............. <H> or <3>\n");
         }
 
-        //
+        /// <summary>
+        /// Shows carpet and mirror spots to put ghosts
+        /// </summary>
+        /// <param name="color">Target spots</param>
         public static void ShowPlacingSpots(byte color)
         {
             //Ask what to do
@@ -441,21 +544,25 @@ namespace _18GhostsGame
                         "|_____|_____|_____|_____|_____|\n");
                     break;
 
-            }            
+            }
         }
 
         // #########################
         // ####  Help Renders  #####
         // #########################
 
-        //
+        /// <summary>
+        /// Action help message
+        /// </summary>
         public static void HelpAction()
         {
-            //Ask what to do
-            PrintText("What do you want to do?\n" +
-                "Move ..... <M> or <1>\n" +
-                "Place .... <P> or <2>\n" +
-                "Help ..... <H> or <3>\n");
+            // Describe options
+            PrintText("MOVE / ATTACK\n" +
+                "\tMove your ghost on the board, you can attack enemies by " +
+                "choosing to move into their cell.\n" +
+                "PLACE\n" +
+                "\tPlace a ghost currently on the Dungeonon the board.\n" +
+                "\tThe enemy chooses where.");
         }
     }
 }
