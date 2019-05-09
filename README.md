@@ -89,7 +89,7 @@ Ajudou também na criação da documentação do _Doxygen_.
 
 ## Problemas conhecidos
 
-- Quando é corrido o comando `$ dotnet run` na consola do Ubunto, o programa
+- Quando é corrido o comando `$ dotnet run` na consola do Ubuntu, o programa
 não compila, provavelmente devido à utilização de `Console.ReadKey()` no código.
 Porém, compila perfeitamente na _cmd_ do windows.
 
