@@ -15,8 +15,6 @@ namespace _18GhostsGame
         /// </param>
         static void Main(string[] args)
         {
-            // Resize window
-            Console.SetWindowSize(60,50);
             // Start game loop
             GameLoop.Run(args);
         }

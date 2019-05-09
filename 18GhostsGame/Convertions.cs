@@ -10,7 +10,7 @@
         /// </summary>
         /// <param name="ghost">Target ghost</param>
         /// <returns>Line and character of the target ghost</returns>
-        public static byte[] NormalizePositions(byte ghost)
+        public byte[] NormalizePositions(byte ghost)
         {
             //  normalizedPos = { line, character spot};
             byte[] normalizedPos = new byte[] { 0, 0 };
@@ -34,7 +34,7 @@
         /// </summary>
         /// <param name="ghost">Target ghost</param>
         /// <returns>Number of the character space</returns>
-        private static byte FindCharacterInLine(byte ghost)
+        private byte FindCharacterInLine(byte ghost)
         {
             // Temporary variable
             byte finalCharacter = 0;
