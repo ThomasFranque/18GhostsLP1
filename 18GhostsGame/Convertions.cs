@@ -1,18 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace _18GhostsGame
+﻿namespace _18GhostsGame
 {
+    /// <summary>
+    /// Normalizes positions to be used on board methods
+    /// </summary>
     class Convertions
     {
-        // Will return the line and character to be printed
+        /// <summary>
+        /// Finds the line and character of the ghost
+        /// </summary>
+        /// <param name="ghost">Target ghost</param>
+        /// <returns>Line and character of the target ghost</returns>
         public static byte[] NormalizePositions(byte ghost)
         {
-            //  normalizedPos = { line, character };
+            //  normalizedPos = { line, character spot};
             byte[] normalizedPos = new byte[] { 0, 0 };
             byte line = 0;
 
+            // Find line and character spot
             for (byte i = 0; i <= ghost; i += 1)
                 if (ghost == i)
                 {
@@ -25,20 +29,23 @@ namespace _18GhostsGame
             return normalizedPos;
         }
 
-        // Will return the character number in a line
+        /// <summary>
+        /// Finds ghost character number
+        /// </summary>
+        /// <param name="ghost">Target ghost</param>
+        /// <returns>Number of the character space</returns>
         private static byte FindCharacterInLine(byte ghost)
         {
-            // ****************************
-            // BETTER SOLUTION IN THE WORKS
-            // ****************************
-
+            // Temporary variable
             byte finalCharacter = 0;
 
             switch (ghost)
             {
+                // In dungeon
                 case 0:
                     break;
 
+                // In first column
                 case 1:
                 case 6:
                 case 11:
@@ -47,6 +54,7 @@ namespace _18GhostsGame
                     finalCharacter = 3;
                     break;
 
+                // In second column
                 case 2:
                 case 7:
                 case 12:
@@ -55,6 +63,7 @@ namespace _18GhostsGame
                     finalCharacter = 9;
                     break;
 
+                // In third column
                 case 3:
                 case 8:
                 case 13:
@@ -63,6 +72,7 @@ namespace _18GhostsGame
                     finalCharacter = 15;
                     break;
 
+                // In fourth column
                 case 4:
                 case 9:
                 case 14:
@@ -71,6 +81,7 @@ namespace _18GhostsGame
                     finalCharacter = 21; 
                     break;
 
+                // In fifth column
                 case 5:
                 case 10:
                 case 15:
@@ -78,60 +89,8 @@ namespace _18GhostsGame
                 case 25:
                     finalCharacter = 27;
                     break;
-
-                default:
-                    BoardRenderer.Error("FindCharacterInLine() in Board.cs",
-                        "Given Ghost position doesn't exist");
-                    break;
-
             }
             return finalCharacter;
-
-            /* 
-             * Will be erased when a better solution is found
-             * 
-            //bool keepRunning = true;
-            if (keepRunning)
-                for (byte k = 1; k <= 21; k += 5)
-                    if (ghost == k)
-                    {
-                        finalCharacter = 3;
-                        k = 22;
-                        keepRunning = false;
-                    }
-            if (keepRunning)
-                for (byte k = 2; k <= 22; k += 5)
-                    if (ghost == k)
-                    {
-                        finalCharacter = 9;
-                        k = 23;
-                        keepRunning = false;
-                    }
-            if (keepRunning)
-                for (byte k = 3; k <= 23; k += 5)
-                    if (ghost == k)
-                    {
-                        finalCharacter = 15;
-                        k = 24;
-                        keepRunning = false;
-                    }
-            if (keepRunning)
-                for (byte k = 4; k <= 24; k += 5)
-                    if (ghost == k)
-                    {
-                        finalCharacter = 21;
-                        k = 25;
-                        keepRunning = false;
-                    }
-            if (keepRunning)
-                for (byte k = 5; k <= 25; k += 5)
-                    if (ghost == k)
-                    {
-                        finalCharacter = 27;
-                        k = 26;
-                    }
-            return finalCharacter;
-            */
         }
     }
 }

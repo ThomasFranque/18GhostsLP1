@@ -1,65 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace _18GhostsGame
+﻿namespace _18GhostsGame
 {
+    /// <summary>
+    /// Controls how many ghosts are necessary to win the game, assigning it
+    /// using command-line arguments
+    /// </summary>
     class GameMode
     {
-        // How many ghosts of the same color need to leave to win
-        private byte toWin;
+        // Property holds how many ghosts 
+        // of the same color need to leave to win the game
         public byte ToWin
-        { get => toWin; private set { if (value <= 3) toWin = value; } }
+        { get; private set; }
 
-        // Number of complete games to play
-        public byte Rounds { get; private set; }
-
-        // Personalized gamemode
+        /// <summary>
+        /// Will read the console arguments and assign a game mode
+        /// </summary>
+        /// <param name="userArg">
+        /// Command-line arguments for the desired game mode
+        /// </param>
         public GameMode(string[] userArg)
         {
             string gamemode;
+
+            // Checking if arguments were given
+            // Sets to default value if not
             if (userArg.Length < 1)
                 gamemode = " ";
             else
                 gamemode = userArg[0];
 
+            // Read the console argument and assign respective game settings
             switch (gamemode)
             {
-                // Quick gamemode
+                // Quick game mode
                 case "quick":
                 case "Quick":
                 case "q":
                 case "Q":
-                    Rounds = 1;
                     ToWin = 1;
                     break;
 
-                // Standard gamemode
+                // Standard game mode
                 case "":
                 case " ":
                 case null:
-                    Rounds = 1;
                     ToWin = 3;
                     break;
-
-                // Personalized gamemode
-                case "personalized":
-                case "Personalized":
-                case "p":
-                case "P":
-                    SetCustomSettings();
-                    break;
             }
-        }
-        // Personalized
-        private void SetCustomSettings()
-        {
-            // ###### Change when class input exists ######
-
-            // Ask how many rounds
-            Rounds = 2;
-            // Ask how many ghosts of the same color need to leave to win
-            toWin = 2;
         }
     }
 }

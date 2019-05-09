@@ -1,16 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace _18GhostsGame
+﻿namespace _18GhostsGame
 {
+    /// <summary>
+    /// Used by board to check for positions and symbols
+    /// </summary>
     class BoardChecker
     {
-        // Used by Board for props
-        public static bool CheckInBoard(string target, byte line, byte j)
+        /// <summary>
+        /// Used to check the location of objects besides ghosts on the board
+        /// </summary>
+        /// <param name="target">Target object name</param>
+        /// <param name="line">Current line</param>
+        /// <param name="j">Current character space</param>
+        /// <returns></returns>
+        public bool CheckInBoard(string target, byte line, byte j)
         {
+            // Temporary method variable
             bool isHere = false;
 
+            // Know what object to look for
             switch (target)
             {
                 // mirrors
@@ -43,26 +50,38 @@ namespace _18GhostsGame
                     if (j % 3 == 0)
                         isHere = true;
                     break;
-
             }
 
             return isHere;
         }
 
-        // Used by the Board for ghosts
-        public static bool CheckInBoard(byte[] ghostPos, byte line, byte j)
+        /// <summary>
+        ///  Used to check the location of ghosts on the board
+        /// </summary>
+        /// <param name="ghostPos">Normalized ghost position</param>
+        /// <param name="line">Current line</param>
+        /// <param name="j">Current character space</param>
+        /// <returns></returns>
+        public bool CheckInBoard(byte[] ghostPos, byte line, byte j)
         {
+            // Temporary variable
             bool isHere = false;
 
+            // Check if it is the ghost place
             if (ghostPos[0] == line && ghostPos[1] == j)
                 isHere = true;
 
             return isHere;
         }
 
-        public static byte[] FindGhost(byte targetGhost, byte[,] allGhosts)
+        /// <summary>
+        /// Finds ghost to print symbol
+        /// </summary>
+        /// <param name="targetGhost">Target ghost position</param>
+        /// <param name="allGhosts">Target player ghosts</param>
+        /// <returns>Ghost letter and color</returns>
+        public byte[] FindGhost(byte targetGhost, byte[,] allGhosts)
         {
-            // enemyGhost
             byte[] finalGhost = new byte[2] { 0, 0 };
             byte counter = 0;
 

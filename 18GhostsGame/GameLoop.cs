@@ -1,97 +1,66 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace _18GhostsGame
 {
+    /// <summary>
+    /// Will initialize all necessary objects, 
+    /// contains the game loop and calls necessary methods.
+    /// </summary>
     static class GameLoop
     {
-        public static void Run()
+        /// <summary>
+        /// Run the game loop and call necessary methods to do so.
+        /// </summary>
+        /// <param name="userArgs">
+        /// Command-line arguments for the desired game mode
+        /// </param>
+        public static void Run(string[] userArgs)
         {
+            // Initializing objects
+            GameMode gamemode = new GameMode(userArgs);
+            TurnManager turnManager = new TurnManager();
 
-            Board board = new Board();
-            Player player1 = new Player(1);
-            Player player2 = new Player(2);
-
-            player2.ResetGhosts();
-            board.Draw(player1.GetGhosts(), player2.GetGhosts());
-
-            // TEMP GAMELOOP
-            while (true)
-            {
-                player1.EnemyGhosts = player2.GetGhosts();
-
-                player2.EnemyGhosts = player1.GetGhosts();
-
-                player1.Action();
-
-                //player1.SetGhostPosToZero();
-                board.Draw(player1.GetGhosts(), player2.GetGhosts());
-            }
-        }
-        //TRYING TO MAKE A GAME LOOP, ask for some help
-        /*public void Loop()
-        {
-            while (victory == false)
-            {
-                Player1turn();
-                Player2turn();
-            }
-        }
-
-        public void Player1turn()
-        {
-            string option;
-
-            option = Inputs.PlayerInput
-            ("What do you want to do? \nMove or Atack");
-
-            switch (option)
-            {
-                case "Move":
-                case "move":
-                case "M":
-                case "m":
-
-                    //Player1 moves
-                    player1.Move();
-                    break;
+            // Show main menu
+            Render.MainMenu(gamemode.ToWin);
+            Console.ReadKey();
             
-                case "Atack":
-                case "atack":
-                case "A":
-                case "a":
-                
-                    break;
+            // Initial placing ghosts
+            turnManager.forcePlacePlayer(1);
+
+            turnManager.forcePlacePlayer(2);
+
+            // Force place until there are no more ghosts in the dungeon
+            for (byte i = 0; i <= 7; i++)
+            {
+                turnManager.forcePlacePlayer(2);
+
+                turnManager.forcePlacePlayer(1);
             }
-        }*/
 
+            // While game is not over
+            while (!Portal.PlayerWon(gamemode.ToWin))
+            {
+                // Check if any ghosts left the castle
+                Portal.GhostsOutCheck(turnManager.GetPlayer(1).GetGhosts(),
+                    turnManager.GetPlayer(2).GetGhosts());
 
-        // GAME LOOP STARTS
+                // Player 1 turn
+                turnManager.turnPlayer(1);
 
-        // Player 1
-        // What do you want to do?
-        // Move / Attack
-        // Choose what color of ghost to move
-        // Choose which ghost of that color to move
-        // Move
-        // up down left or right (u,d,l,r / w,a,s,d)
-        // Check who wins or nothing
+                // Check if any ghosts left the castle
+                Portal.GhostsOutCheck(turnManager.GetPlayer(1).GetGhosts(),
+                    turnManager.GetPlayer(2).GetGhosts());
 
-        // Rotate portals
-        // Check adjacent
-        // Excapes if yes
+                // Check if game is over
+                if (!Portal.PlayerWon(gamemode.ToWin))
+                    // Player 2 turn
+                    turnManager.turnPlayer(2);
+            }
 
-        // Player 2
-        // What do you want to do?
-        // Move / attack
-        // Choose what color of ghost to move
-        // Choose which ghost of that color to move
-        // Move
-        // Check who wins or nothing
-
-        // Rotate portals
-        // Check adjacent
-        // Excapes if yes
+            // Winning message
+            Render.Clear();
+            Render.PrintText("PLAYER " + Portal.CheckWinner(gamemode.ToWin) +
+                " WINS!\n press any key to end the program...");
+            Console.ReadKey();
+        }
     }
 }
