@@ -2,8 +2,8 @@
 
 ## Colaboradores
 
-- [Tomás Franco](https://github.com/ThomasFranque)
-- [Guilherme Carvalho](https://github.com/GuilhermeCarvalho25)
+- [Tomás Franco](https://github.com/ThomasFranque), a2180330
+- [Guilherme Carvalho](https://github.com/GuilhermeCarvalho25), a21803633
 ([_Fork_](https://github.com/GuilhermeCarvalho25))
 
 ## Divisão do trabalho
