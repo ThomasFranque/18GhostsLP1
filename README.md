@@ -12,10 +12,12 @@
 
 #### Responsável por
 
-- Impressão de elementos no ecrã, nomeadamente, 
+- Impressão de elementos no ecrã, nomeadamente,
 o tabuleiro de jogo e as mensagens de informação.
 
-- Parcial otimização do código.
+- Jogadores
+
+- Otimização do código.
 
 - Acabamento do código.
 
@@ -48,7 +50,11 @@ intenções do jogar quando é o turno dele, mudando depois para a classe
 
 ## Fluxograma
 
+![Fluxo](add url here)
+
 ## Diagrama UML
+
+![UML](add url here)
 
 ## Conclusões e matéria aprendida
 
@@ -71,6 +77,8 @@ elementos gráficos.
 1. [Verificar se "_index is out of range_"](https://stackoverflow.com/questions/42536752/how-can-i-check-if-an-array-index-is-out-of-range)
 2. [Argumentos na linha de comandos](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/main-and-command-args/command-line-arguments)
 3. [Validar um _input_](https://codeasy.net/lesson/input_validation)
+4. [Imagens em _Markdown_](https://stackoverflow.com/questions/14494747/add-images-to-readme-md-on-github)
+5. [Markdown _Cheat Sheet_](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
 ### Trocas de ideias
 
@@ -91,29 +99,6 @@ preso num _loop_ infinito que lhe pede para escolher uma casa válida.
 - Se um fantasma ficar livre, ao escolher mexer esse mesmo fantasma para a
 esquerda o fantasma aparecerá na casa 25 (canto inferior direito).
 
-- Se o jogador mover o fantasma inválidamente, perde o turno.
+- Se o jogador mover o fantasma indevidamente, perde o turno.
 
 ---
-
-~~Título do projeto.~~
-
-~~Nome dos autores (primeiro e último) e respetivos números de aluno.~~
-
-~~Indicação do repositório público Git utilizado. Esta indicação é opcional, pois podem preferir desenvolver o projeto num repositório privado.~~
-
-Informação de quem fez o quê no projeto. Esta informação é obrigatória e deve refletir os commits feitos no Git.
-
-~~Descrição da solução:
-Arquitetura da solução, com breve explicação de como o programa foi organizado e algoritmos implementados.
-Um diagrama UML de classes simples (i.e., sem indicação dos membros da classe) descrevendo a estrutura de classes.~~
-Um fluxograma mostrando o funcionamento do programa.
-
-Conclusões e matéria aprendida.
-
-Referências, incluindo trocas de ideias com colegas, código aberto reutilizado ou no qual se basearam (e.g., do StackOverflow ou do GitHub) e bibliotecas de terceiros utilizadas. Devem ser o mais detalhados possível.
-
-Nota adicionais sobre o relatório:
-O relatório deve ser simples e breve, com informação mínima e suficiente para que seja possível ter uma boa ideia do que foi feito.
-Atenção aos erros ortográficos, pois serão tidos em conta na nota final.
-Atenção à formatação Markdown, pois será tida em conta na nota final.
-Se usarem o Visual Studio Code para fazer o relatório, façam uso da extensão de correção ortográfica (e o seu dicionário de Português) e extensões para edição de Markdown.
