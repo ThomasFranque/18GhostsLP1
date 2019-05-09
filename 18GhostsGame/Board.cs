@@ -7,6 +7,7 @@
     {
         // Variables
         BoardChecker checker;
+        Convertions convertions;
         // Read-only variable
         private readonly Symbols[] ghostSymsP1, ghostSymsP2;
 
@@ -17,6 +18,7 @@
         public Board()
         {
             checker = new BoardChecker();
+            convertions = new Convertions();
             // Prepare for unicode encoding
             Render.SetConsoleEncoding();
 
@@ -96,7 +98,7 @@
                             foreach (byte ghost in p1Ghosts)
                             {
                                 ghostPos =
-                                    Convertions.NormalizePositions(ghost);
+                                    convertions.NormalizePositions(ghost);
                                 if (checker.CheckInBoard
                                     (ghostPos, line, j))
                                 {
@@ -112,7 +114,7 @@
                                 symbol = Symbols.blank;
 
                                 ghostPos =
-                                    Convertions.NormalizePositions(ghost);
+                                    convertions.NormalizePositions(ghost);
                                 if (checker.CheckInBoard
                                     (ghostPos, line, j))
                                 {
