@@ -18,7 +18,10 @@ namespace _18GhostsGame
             // Initializing objects
             GameMode gamemode = new GameMode(userArgs);
             TurnManager turnManager = new TurnManager();
-            
+
+            // Show main menu
+            Render.MainMenu(gamemode.ToWin);
+            Console.ReadKey();
             
             // Initial placing ghosts
             turnManager.forcePlacePlayer(1);

@@ -362,6 +362,38 @@ namespace _18GhostsGame
             Console.Write("  |____________\n");                
         }
 
+        /// <summary>
+        /// Will show the main menu
+        /// </summary>
+        /// <param name="toWin">Ghosts of the same color to win</param>
+        public static void MainMenu(byte toWin)
+        {
+            if (toWin > 1)
+            {
+                Console.WriteLine("You have started the game in:\n" +
+                    "NORMAL MODE\n");
+            }
+            else
+            {
+                Console.WriteLine("You have started the game in:" +
+                    "QUICK MODE\n\n");
+            }
+            Console.WriteLine("WELCOME TO 18 GHOSTS!\n" +
+                "Player 1 ghosts are:" +
+                " | a | b | c |\n" +
+                "----------------------------------\n" +
+                "Player 2 ghosts are:" +
+                " | ɐ | q | ɔ |\n" +
+                "----------------------------------\n" +
+                "Portals are:" +
+                " | ↑ | ↓ | ← | → |\n" +
+                "------------------------------\n" +
+                "Mirrors are:" +
+                " | ¤ |\n\n" +
+                "Input any key to continue...");
+
+        }
+
 
         // #########################
         // #### Player Renders #####
