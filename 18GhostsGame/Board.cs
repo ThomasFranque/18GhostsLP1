@@ -45,6 +45,7 @@ namespace _18GhostsGame
 
             // Printing starts
             // Print the first horizontal lines
+            Render.PrintScoreTable(Portal.ghostsOut);
             Render.PrintHorizontalLines();
 
             // Print all the upcoming lines to make a 5x5 board

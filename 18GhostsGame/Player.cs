@@ -53,6 +53,8 @@ namespace _18GhostsGame
                     case ConsoleKey.P:
                     case ConsoleKey.D2:
                         chosen = !chosen;
+                        Render.PrintText
+                            ("\nLet your opponent choose where!\n");
                         ghosts.Place(EnemyGhosts);
                         //Render.HelpPlacing();
                         break;
@@ -64,6 +66,11 @@ namespace _18GhostsGame
                         break;
                 }
             }
+        }
+
+        public void ForcePlace()
+        {
+            ghosts.Place(EnemyGhosts);
         }
 
         public byte GetPlayerNum() => playerNum;

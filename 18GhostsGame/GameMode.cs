@@ -7,12 +7,8 @@ namespace _18GhostsGame
     class GameMode
     {
         // How many ghosts of the same color need to leave to win
-        private byte toWin;
         public byte ToWin
-        { get => toWin; private set { if (value <= 3) toWin = value; } }
-
-        // Number of complete games to play
-        public byte Rounds { get; private set; }
+        { get; private set; }
 
         // Personalized gamemode
         public GameMode(string[] userArg)
@@ -30,7 +26,6 @@ namespace _18GhostsGame
                 case "Quick":
                 case "q":
                 case "Q":
-                    Rounds = 1;
                     ToWin = 1;
                     break;
 
@@ -38,28 +33,9 @@ namespace _18GhostsGame
                 case "":
                 case " ":
                 case null:
-                    Rounds = 1;
                     ToWin = 3;
                     break;
-
-                // Personalized gamemode
-                case "personalized":
-                case "Personalized":
-                case "p":
-                case "P":
-                    SetCustomSettings();
-                    break;
             }
-        }
-        // Personalized
-        private void SetCustomSettings()
-        {
-            // ###### Change when class input exists ######
-
-            // Ask how many rounds
-            Rounds = 2;
-            // Ask how many ghosts of the same color need to leave to win
-            toWin = 2;
         }
     }
 }

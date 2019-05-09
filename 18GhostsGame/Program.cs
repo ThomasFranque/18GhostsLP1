@@ -7,7 +7,7 @@ namespace _18GhostsGame
         static void Main(string[] args)
         {
             Console.SetWindowSize(60,50);
-            GameLoop.Run();
+            GameLoop.Run(args);
         }
     }
 }
