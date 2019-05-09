@@ -12,7 +12,7 @@
 
         public static string YellowPortalState { get; private set; }
 
-        // Initializing bidimentional 
+        // Initializing bi-dimentional 
         // auto-property that holds the free ghosts as:
         // Player 1 free ghosts = ghostsOut[0]
         // Player 1 free ghosts = ghostsOut[1]
@@ -20,7 +20,7 @@
         public static byte[,] ghostsOut { get; private set; }
 
         /// <summary>
-        /// Constructor Portal assigns proprties with default values
+        /// Constructor Portal assigns properties with default values
         /// </summary>
         static Portal()
         {
@@ -32,7 +32,7 @@
         }
 
         /// <summary>
-        /// Recieves the dead ghost color 
+        /// Receives the dead ghost color 
         /// and rotates the portal of the same color
         /// </summary>
         /// <param name="color">Dead ghost color</param>
@@ -268,7 +268,7 @@
         }
 
         /// <summary>
-        /// Is used to know wich of the players won
+        /// Is used to know which of the players won
         /// </summary>
         /// <param name="toWin">Ghosts of the same color needed to win</param>
         /// <returns>The winning player</returns>

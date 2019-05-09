@@ -15,7 +15,7 @@
         /// </summary>
         public TurnManager()
         {
-            // Assingning objects
+            // Assigning objects
             board = new Board();
 
             player1 = new Player();

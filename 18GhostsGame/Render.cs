@@ -150,7 +150,7 @@ namespace _18GhostsGame
         }
 
         /// <summary>
-        /// Know wich symbol from Symbols enum 
+        /// Know which symbol from Symbols enum 
         /// represents the given portal position
         /// </summary>
         /// <param name="portal">Target Portal</param>
@@ -231,7 +231,7 @@ namespace _18GhostsGame
         }
 
         /// <summary>
-        /// Prints the color conflic chain order
+        /// Prints the color conflict chain order
         /// </summary>
         public static void ColorConflics()
         {
