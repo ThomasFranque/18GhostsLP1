@@ -50,11 +50,11 @@ intenções do jogar quando é o turno dele, mudando depois para a classe
 
 ## Fluxograma
 
-![Fluxo](add url here)
+![Fluxo](https://github.com/ThomasFranque/18GhostsLP1/blob/master/img/18Ghosts_Fluxograma.png)
 
 ## Diagrama UML
 
-![UML](add url here)
+![UML](https://github.com/ThomasFranque/18GhostsLP1/blob/master/img/18Ghosts_UML.png)
 
 ## Conclusões e matéria aprendida
 
@@ -66,7 +66,7 @@ em geral.
 
 Devido a um dos elementos do grupo ser fraco a programação, o código foi
 maioritariamente feito por uma única pessoa, mesmo após os esforços da
-mesma para tentar o ajudar, o desenvolvimento do programa estava a ser
+mesma para o tentar ajudar, o desenvolvimento do programa estava a ser
 demasiado lento para entregar a horas. Deste modo, ficou encarregue dos
 elementos gráficos.
 
@@ -87,7 +87,7 @@ Em conversa com o colega [Rodrigo Pinheiro](https://github.com/RodrigoPrinheiro)
 sobre o conflito entre fantasmas após serem transportados por um espelho.
 Ajudou também na criação da documentação do _Doxygen_.
 
-### Problemas conhecidos
+## Problemas conhecidos
 
 - Quando é corrido o comando `$ dotnet run` na consola do Ubunto, o programa
 não compila, provavelmente devido à utilização de `Console.ReadKey()` no código.
