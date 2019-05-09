@@ -101,4 +101,6 @@ esquerda o fantasma aparecerá na casa 25 (canto inferior direito).
 
 - Se o jogador mover o fantasma indevidamente, perde o turno.
 
+- Os conflitos deixaram de funcionar numa das últimas versões, tornando o jogo impossível de jogar.
+
 ---
